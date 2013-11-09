@@ -14,6 +14,7 @@
   
 (defun ensure-packages-installed-p ()
   (mapcar 'ensure-packages-package-installed-p ensure-packages))
+  
 (defun ensure-packages-install-missing ()
   (interactive)
   (unless (every 'identity (ensure-packages-installed-p))
