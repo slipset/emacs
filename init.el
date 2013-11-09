@@ -1,8 +1,19 @@
 (setq init-home-dir "~/.emacs.d/")
+
+
+
+(require 'ensure-packages)
+(setq ensure-packages
+      '(projectile))
+
+(ensure-packages-install-missing)
+
+(require 'auto-complete-config)
+
 (put 'downcase-region 'disabled nil)
 
 (add-to-list 'load-path init-home-dir)
-(require 'auto-complete-config)
+
 (add-to-list 'ac-dictionary-directories (concat init-home-dir "ac-dict"))
 (ac-config-default)
 
