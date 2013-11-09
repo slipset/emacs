@@ -25,3 +25,5 @@
 (setq tab-width 4)
 (setq mac-option-modifier 'super)
 (setq mac-command-modifier 'meta)
+
+(defalias 'yes-or-no-p 'y-or-n-p)
