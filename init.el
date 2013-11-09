@@ -1,7 +1,9 @@
+(setq init-home-dir "~/.emacs.d/")
 (put 'downcase-region 'disabled nil)
-(add-to-list 'load-path "/Users/erik/.emacs.d/")
+
+(add-to-list 'load-path init-home-dir)
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+(add-to-list 'ac-dictionary-directories (concat init-home-dir "ac-dict"))
 (ac-config-default)
 
 
