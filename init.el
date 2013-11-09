@@ -1,7 +1,7 @@
 (put 'downcase-region 'disabled nil)
 (add-to-list 'load-path "/Users/erik/.emacs.d/")
 (require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "/Users/erik/.emacs.d/ac-dict")
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (ac-config-default)
 
 
