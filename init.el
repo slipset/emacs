@@ -117,5 +117,14 @@
 
 (defun start-chrome ()
   (interactive)
-  (start-process "chrome" "*chrome*" "chromium-browser" "--remote-debugging-port=9222"))
-			  
+  (start-process "chrome" "*chrome*" "chromium-browser" "--remote-debugging-port=9222" "--url http://localhost/index.html"))
+
+(defun kill-chrome ()
+  (interactive)
+  (start-process "kill chrome" "*kill-chrome*" "killall" "chrome"))
+
+(defun restart-chrome ()
+  (interactive)
+  (kill-chrome)
+  (start-chrome))
+  
