@@ -1,9 +1,14 @@
 (setq init-home-dir "~/.emacs.d/")
 
+(add-to-list 'load-path init-home-dir)
+
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("melpa" . "http://melpa.milkbox.net/packages/")))
 
 (require 'ensure-packages)
 (setq ensure-packages
-      '(projectile simple-httpd flymake-jslint flymake-cursor git uniquify))
+      '(projectile simple-httpd flymake-jslint flymake-cursor git kite magit))
 
 (ensure-packages-install-missing)
 
@@ -11,17 +16,16 @@
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (setq-default cursor-type 'bar)
-(set-face-attribute 'default nil :height 110)
 
 (autoload 'js2-mode "js2" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 
 
 (require 'auto-complete-config)
-
+(require 'kite)
+(require 'magit)
 (put 'downcase-region 'disabled nil)
 
-(add-to-list 'load-path init-home-dir)
 
 (add-to-list 'ac-dictionary-directories (concat init-home-dir "ac-dict"))
 (ac-config-default)
@@ -37,9 +41,6 @@
 
  (define-key global-map (kbd "RET") 'newline-and-indent)
 
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")))
 (require 'projectile)
 (projectile-global-mode)
 (setq tab-width 4)
@@ -113,3 +114,8 @@
 (require 'simple-httpd)
 (setq httpd-root "~/workspace/")
 (httpd-start)
+
+(defun start-chrome ()
+  (interactive)
+  (start-process "chrome" "*chrome*" "chromium-browser" "--remote-debugging-port=9222"))
+			  
