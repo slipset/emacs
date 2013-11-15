@@ -130,3 +130,47 @@
   (kill-chrome)
   (start-chrome))
   
+
+(defun kite-visit-script (script-info line column after-load-function)
+  "Visit the script described by the given SCRIPT-INFO and, once
+loaded, move point to LINE and COLUMN and execute
+AFTER-LOAD-FUNCTION with the new buffer current.  If a source map
+is available, go to the original location instead."
+  (interactive)
+  (let* ((original-source (kite-script-info--original-source
+                           script-info
+                           line
+                           column))
+         (url (plist-get original-source :url))
+         (url-parts (url-generic-parse-url url)))
+    (flet
+     ((after-load ()
+                  (goto-char (point-min))
+                  (forward-line
+                   (1- (plist-get original-source :line)))
+                  (beginning-of-line)
+                  (forward-char
+                   (plist-get original-source :column))
+                  (funcall after-load-function)))
+     (cond
+      ((string= (url-type url-parts) "file")
+       (find-file (url-filename url-parts))
+       (after-load))
+      (kite-local-root 
+       (find-file (kite-find-local-file url-parts))
+       (after-load))
+      (t
+       (switch-to-buffer
+        (or (get-buffer url)
+            (kite--create-remote-script-buffer
+             script-info (function after-load)))))))))
+
+(setq kite-local-root "~/workspace/prosjekthotell")
+
+(defun kite-find-local-file (url-parts)
+  "Returns the local path of a debugged file if some var is set"
+  (interactive)
+  (progn
+    (cond (kite-local-root (concat kite-local-root (car (url-path-and-query url-parts))))
+	(t (url-filename url-parts)))))
+
