@@ -1,5 +1,5 @@
 (require 'package)
-
+(require 'cl)
 (package-initialize)
 
 (setq url-http-attempt-keepalives nil)
