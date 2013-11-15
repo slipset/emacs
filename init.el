@@ -15,6 +15,7 @@
 (load-theme 'tango-dark)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
+(scroll-bar-mode -1)
 (setq-default cursor-type 'bar)
 
 (autoload 'js2-mode "js2" nil t)
@@ -105,7 +106,7 @@
 
 (global-auto-revert-mode 1)
 
-(set-face-attribute 'default nil :height 80)
+(set-face-attribute 'default nil :height 100)
 	
 (modify-coding-system-alist 'file "\\.js\\'" 'utf-8-dos)
 
