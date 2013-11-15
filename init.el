@@ -8,7 +8,7 @@
 
 (require 'ensure-packages)
 (setq ensure-packages
-      '(projectile simple-httpd flymake-jslint flymake-cursor git kite magit))
+      '(projectile simple-httpd flymake-jslint flymake-cursor git kite magit smart-tabs-mode))
 
 (ensure-packages-install-missing)
 
