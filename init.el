@@ -8,18 +8,20 @@
 
 (require 'ensure-packages)
 (setq ensure-packages
-      '(projectile simple-httpd flymake-jslint flymake-cursor git kite magit))
+      '(projectile simple-httpd flymake-jslint flymake-cursor git kite magit js2-mode))
 
 (ensure-packages-install-missing)
 
 (load-theme 'tango-dark)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
+(scroll-bar-mode -1)
+(line-number-mode t)
 (setq-default cursor-type 'bar)
-
+(require 'js2-mode)
 (autoload 'js2-mode "js2" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
-
+(define-key js2-mode-map (kbd "C-c r") 'kite-reload-page)
 
 (require 'auto-complete-config)
 (require 'kite)
