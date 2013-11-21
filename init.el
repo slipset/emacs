@@ -8,7 +8,7 @@
 
 (require 'ensure-packages)
 (setq ensure-packages
-      '(projectile simple-httpd flymake-jslint flymake-cursor git kite magit js2-mode))
+      '(projectile simple-httpd flymake-jslint flymake-cursor git kite magit smart-tabs-mode js2-mode))
 
 (ensure-packages-install-missing)
 
@@ -18,6 +18,7 @@
 (scroll-bar-mode -1)
 (line-number-mode t)
 (setq-default cursor-type 'bar)
+
 (require 'js2-mode)
 (autoload 'js2-mode "js2" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
@@ -107,7 +108,7 @@
 
 (global-auto-revert-mode 1)
 
-(set-face-attribute 'default nil :height 80)
+(set-face-attribute 'default nil :height 100)
 	
 (modify-coding-system-alist 'file "\\.js\\'" 'utf-8-dos)
 
