@@ -152,6 +152,7 @@ is available, go to the original location instead."
                   (forward-char
                    (plist-get original-source :column))
                   (funcall after-load-function)))
+	 (debug)
      (cond
       ((string= (url-type url-parts) "file")
        (find-file (url-filename url-parts))
@@ -164,6 +165,9 @@ is available, go to the original location instead."
         (or (get-buffer url)
             (kite--create-remote-script-buffer
              script-info (function after-load)))))))))
+
+;; sudo apt-get install ttf-inconsolata
+(set-default-font "Inconsolata-8")
 
 (setq kite-local-root "~/workspace/prosjekthotell")
 
