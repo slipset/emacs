@@ -1,4 +1,5 @@
 (setq init-home-dir "~/.emacs.d/")
+(setq inhibit-startup-screen t)
 
 (add-to-list 'load-path init-home-dir)
 
@@ -8,11 +9,11 @@
 
 (require 'ensure-packages)
 (setq ensure-packages
-      '(projectile simple-httpd flymake-jslint flymake-cursor git kite magit smart-tabs-mode js2-mode))
+      '(projectile simple-httpd flymake-jslint flymake-cursor git kite egg smart-tabs-mode js2-mode git-gutter-fringe smart-mode-line))
 
 (ensure-packages-install-missing)
 
-(load-theme 'tango-dark)
+(load-theme 'wombat)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
@@ -26,7 +27,15 @@
 
 (require 'auto-complete-config)
 (require 'kite)
-(require 'magit)
+(require 'egg)
+
+(require 'git-gutter-fringe)
+
+(global-git-gutter-mode +1)
+
+(require 'smart-mode-line)
+(sml/setup)
+
 (put 'downcase-region 'disabled nil)
 
 
@@ -65,7 +74,8 @@
 (add-hook 'js2-mode-hook
           (lambda ()
             (flymake-mode t)
-			(setq tab-width 4)))
+	    (egg-minor-mode)
+	    (setq tab-width 4)))
 
 ;; (add-hook 'js-mode-hook 'smart-tabs-mode-enable)
 
@@ -168,7 +178,9 @@ is available, go to the original location instead."
              script-info (function after-load)))))))))
 
 ;; sudo apt-get install ttf-inconsolata
-(set-default-font "Inconsolata-8")
+(setq font-name "Inconsolata-8")
+(when (find-font (font-spec :name font-name))
+  (set-default-font font-name))
 
 (setq kite-local-root "~/workspace/prosjekthotell")
 
@@ -179,3 +191,5 @@ is available, go to the original location instead."
     (cond (kite-local-root (concat kite-local-root (car (url-path-and-query url-parts))))
 	(t (url-filename url-parts)))))
 
+(set-frame-size (selected-frame) 162 80)
+(split-window-horizontally)
