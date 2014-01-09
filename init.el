@@ -9,7 +9,10 @@
 
 (require 'ensure-packages)
 (setq ensure-packages
-      '(projectile simple-httpd flymake-jslint flymake-cursor git kite egg smart-tabs-mode js2-mode git-gutter-fringe smart-mode-line))
+      '(projectile simple-httpd flymake-jslint
+		   flymake-cursor git kite egg
+		   smart-tabs-mode js2-mode git-gutter-fringe
+		   smart-mode-line test-case-mode twittering-mode))
 
 (ensure-packages-install-missing)
 
@@ -19,6 +22,7 @@
 (scroll-bar-mode -1)
 (line-number-mode t)
 (setq-default cursor-type 'bar)
+(global-linum-mode)
 
 (require 'js2-mode)
 (autoload 'js2-mode "js2" nil t)
@@ -28,6 +32,8 @@
 (require 'auto-complete-config)
 (require 'kite)
 (require 'egg)
+(require 'test-case-mode)
+(require 'twittering-mode)
 
 (require 'git-gutter-fringe)
 
@@ -38,7 +44,9 @@
 
 (put 'downcase-region 'disabled nil)
 
-
+(setq split-height-threshold nil)
+(setq split-width-threshold 80)
+(setq ediff-split-window-function 'split-window-horizontally)
 (add-to-list 'ac-dictionary-directories (concat init-home-dir "ac-dict"))
 (ac-config-default)
 
@@ -67,13 +75,14 @@
 ;; Make sure we can find the lintnode executable
 (setq lintnode-location "~/node/lintnode")
 ;; JSLint can be... opinionated
-(setq lintnode-jslint-set "sloppy:true,todo:true")
+(setq lintnode-jslint-set "sloppy:true,todo:true,unparam:false")
 (setq lintnode-jslint-excludes (list 'nomen 'plusplus 'onevar 'white ))
 ;; Start the server when we first open a js file and start checking
 
 (add-hook 'js2-mode-hook
           (lambda ()
             (flymake-mode t)
+	    (test-case-mode t)
 	    (egg-minor-mode)
 	    (setq tab-width 4)))
 
@@ -130,7 +139,7 @@
 
 (defun start-chrome ()
   (interactive)
-  (start-process "chrome" "*chrome*" "chromium-browser" "--remote-debugging-port=9222" "--url http://localhost/index.html"))
+  (start-process "chrome" "*chrome*" "chromium-browser" "--remote-debugging-port=9222"))
 
 (defun kill-chrome ()
   (interactive)
@@ -178,7 +187,7 @@ is available, go to the original location instead."
              script-info (function after-load)))))))))
 
 ;; sudo apt-get install ttf-inconsolata
-(setq font-name "Inconsolata-8")
+(setq font-name "Inconsolata-9")
 (when (find-font (font-spec :name font-name))
   (set-default-font font-name))
 
@@ -190,6 +199,50 @@ is available, go to the original location instead."
   (progn
     (cond (kite-local-root (concat kite-local-root (car (url-path-and-query url-parts))))
 	(t (url-filename url-parts)))))
+
+
+(defvar test-case-jasmine-font-lock-keywords
+  "Keywords to link failures back to"
+  (eval-when-compile
+    `((,(concat
+         `((,(concat "\\_<\\(?:it\\)\\_>")
+       (0 'test-case-assertion append))))))))
+
+(defun test-case-jasmine-failure-pattern ()
+  "Regexp to match errors in jasmine tests"
+  (eval-when-compile
+    `(,(concat "^[^ \t]+([^ \t]+) "
+               "\\[\\(\\([^:]+\\):\\([[:digit:]]+\\)\\)\\]:\n"
+               "\\(\\(.+\n\\)*\\)\n")
+      2 3 nil 1 4)))
+
+(defun test-case-jasmine-backend (command)
+  "Javascript Jasmine backend for `test-case-mode`"
+  (case command
+    ('name "Jasmine")
+    ('supported (or (derived-mode-p 'js2-mode)
+                    (string-match "Test.js" (buffer-file-name))))
+
+    ('command "cd ~/workspace/prosjekthotell; phantomjs app-test/run-jasmine.js jasmine.html")
+    ('save t)
+    ('failure-pattern (test-case-jasmine-failure-pattern))
+    ('font-lock-keywords test-case-jasmine-font-lock-keywords)))
+
+(add-to-list 'test-case-backends 'test-case-jasmine-backend)
+
+(defun build-ctags ()
+  (interactive)
+  (message "building project tags")
+  (let ((root "~/workspace/prosjekthotell/"))
+    (shell-command (concat "ctags -e -R --extra=+fq --exclude=.grunt --exclude=build --exclude=lib --exclude=node_modules --exclude=db --exclude=ext --exclude=test --exclude=.git --exclude=public -f " root "TAGS " root)))
+  (visit-project-tags)
+  (message "tags built successfully"))
+
+(defun visit-project-tags ()
+  (interactive)
+  (let ((tags-file (concat "~/workspace/prosjekthotell/" "TAGS")))
+    (visit-tags-table tags-file)
+    (message (concat "Loaded " tags-file))))
 
 (set-frame-size (selected-frame) 162 80)
 (split-window-horizontally)
