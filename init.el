@@ -12,7 +12,8 @@
       '(projectile simple-httpd flymake-jslint
 		   flymake-cursor git kite egg
 		   smart-tabs-mode js2-mode git-gutter-fringe
-		   smart-mode-line test-case-mode twittering-mode))
+		   smart-mode-line test-case-mode twittering-mode
+		   clojure-mode clojure-test-mode cider))
 
 (ensure-packages-install-missing)
 
@@ -45,7 +46,7 @@
 (put 'downcase-region 'disabled nil)
 
 (setq split-height-threshold nil)
-(setq split-width-threshold 80)
+(setq split-width-threshold 160)
 (setq ediff-split-window-function 'split-window-horizontally)
 (add-to-list 'ac-dictionary-directories (concat init-home-dir "ac-dict"))
 (ac-config-default)
@@ -121,8 +122,20 @@
 (smart-tabs-insinuate 'c 'c++ 'java 'javascript 'cperl 'python
                         'ruby 'nxml)
 (setq tab-width 4)        ;; set your desired tab width
+
 (require 'projectile)
 (add-hook 'js2-mode-hook 'projectile-on)
+
+;; Clojure stuff
+(require 'cider)
+(setq nrepl-hide-special-buffers t)
+(add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+(setq cider-popup-stacktraces nil)
+(setq cider-repl-print-length 100)
+(setq cider-repl-result-prefix ";; => ")
+(setq cider-repl-use-clojure-font-lock t)
+
+
 
 
 (global-auto-revert-mode 1)
