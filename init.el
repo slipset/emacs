@@ -13,7 +13,8 @@
 		   flymake-cursor git kite egg
 		   smart-tabs-mode js2-mode git-gutter-fringe
 		   smart-mode-line test-case-mode twittering-mode
-		   clojure-mode clojure-test-mode cider))
+		   clojure-mode clojure-test-mode cider
+		   markdown-mode))
 
 (ensure-packages-install-missing)
 
