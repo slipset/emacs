@@ -1,4 +1,5 @@
-(setq init-home-dir "~/.emacs.d/")
+;; my emacs config
+
 (setq inhibit-startup-screen t)
 
 (add-to-list 'load-path init-home-dir)
