@@ -4,15 +4,16 @@
 (add-to-list 'load-path init-home-dir)
 
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+                         ("marmalade" . "http://marmalade-repo.org/packages/")))
+                         ;("melpa" . "http://melpa.milkbox.net/packages/")))
 
 (require 'ensure-packages)
 (setq ensure-packages
       '(projectile simple-httpd flymake-jslint
-		   flymake-cursor git kite egg
-		   smart-tabs-mode js2-mode git-gutter-fringe
-		   smart-mode-line test-case-mode twittering-mode))
+		   flymake-cursor
+		   js2-mode git-gutter-fringe
+		   smart-mode-line test-case-mode twittering-mode
+		   cider))
 
 (ensure-packages-install-missing)
 
@@ -30,8 +31,8 @@
 (define-key js2-mode-map (kbd "C-c r") 'kite-reload-page)
 
 (require 'auto-complete-config)
-(require 'kite)
-(require 'egg)
+;(require 'kite)
+;(require 'egg)
 (require 'test-case-mode)
 (require 'twittering-mode)
 
@@ -42,10 +43,15 @@
 (require 'smart-mode-line)
 (sml/setup)
 
+(require 'cider)
+(setq cider-repl-pop-to-buffer-on-connect nil)
+(setq cider-repl-result-prefix ";; => ")
+(setq cider-repl-use-clojure-font-lock t)
+
 (put 'downcase-region 'disabled nil)
 
 (setq split-height-threshold nil)
-(setq split-width-threshold 80)
+(setq split-width-threshold nil)
 (setq ediff-split-window-function 'split-window-horizontally)
 (add-to-list 'ac-dictionary-directories (concat init-home-dir "ac-dict"))
 (ac-config-default)
@@ -64,8 +70,11 @@
 (require 'projectile)
 (projectile-global-mode)
 (setq tab-width 4)
-(setq mac-option-modifier 'super)
-(setq mac-command-modifier 'meta)
+(if (eq system-type 'darwin)
+    (progn
+      (setq default-input-method "MacOSX")
+      (setq mac-option-modifier 'none)
+      (setq mac-command-modifier 'meta)))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -91,7 +100,7 @@
 (require 'flymake-cursor)
 
 (add-to-list 'load-path "/usr/share/emacs24/site-lisp/git/")
-(require 'git)
+;(require 'git)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -111,15 +120,15 @@
 
 (setq indent-tabs-mode t) ;; use tabs for indentation
 
-(autoload 'smart-tabs-mode "smart-tabs-mode"
-   "Intelligently indent with tabs, align with spaces!")
-(autoload 'smart-tabs-mode-enable "smart-tabs-mode")
-(autoload 'smart-tabs-advice "smart-tabs-mode")
-(autoload 'smart-tabs-insinuate "smart-tabs-mode")
+;(autoload 'smart-tabs-mode "smart-tabs-mode"
+;   "Intelligently indent with tabs, align with spaces!")
+;(autoload 'smart-tabs-mode-enable "smart-tabs-mode")
+;(autoload 'smart-tabs-advice "smart-tabs-mode")
+;(autoload 'smart-tabs-insinuate "smart-tabs-mode")
 
-(smart-tabs-advice js-indent-line js-basic-offset)
-(smart-tabs-insinuate 'c 'c++ 'java 'javascript 'cperl 'python
-                        'ruby 'nxml)
+;(smart-tabs-advice js-indent-line js-basic-offset)
+;(smart-tabs-insinuate 'c 'c++ 'java 'javascript 'cperl 'python
+;                        'ruby 'nxml)
 (setq tab-width 4)        ;; set your desired tab width
 (require 'projectile)
 (add-hook 'js2-mode-hook 'projectile-on)
