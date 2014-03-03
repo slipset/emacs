@@ -2,8 +2,8 @@
 
 (setq inhibit-startup-screen t)
 
+(setq init-home-dir "~/.emacs.d/")
 (add-to-list 'load-path init-home-dir)
-
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
                          ("marmalade" . "http://marmalade-repo.org/packages/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
@@ -15,7 +15,8 @@
 		   smart-tabs-mode js2-mode git-gutter-fringe
 		   smart-mode-line test-case-mode twittering-mode
 		   clojure-mode clojure-test-mode cider
-		   markdown-mode))
+		   markdown-mode
+		   purty-mode))
 
 (ensure-packages-install-missing)
 
@@ -37,6 +38,12 @@
 (require 'egg)
 (require 'test-case-mode)
 (require 'twittering-mode)
+
+;(require 'purty-mode)
+;(purty-add-pair '("\\(->\\)" . "→"))
+;(purty-add-pair '("\\(->>\\)" . "↠"))
+
+
 
 (require 'git-gutter-fringe)
 
@@ -132,14 +139,12 @@
 (require 'cider)
 (setq nrepl-hide-special-buffers t)
 (add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+(add-hook 'cider-mode-hook 'purty-mode)
 (setq cider-popup-stacktraces nil)
-(setq cider-repl-print-length 100)
+(setq cider-repl-print-length 100000)
 (setq cider-repl-result-prefix ";; => ")
 (setq cider-repl-use-clojure-font-lock t)
-
-
-
-
+(setq nrepl-port "4807")
 (global-auto-revert-mode 1)
 
 (set-face-attribute 'default nil :height 100)
@@ -202,7 +207,7 @@ is available, go to the original location instead."
              script-info (function after-load)))))))))
 
 ;; sudo apt-get install ttf-inconsolata
-(setq font-name "Inconsolata-9")
+(setq font-name "Inconsolata-10")
 (when (find-font (font-spec :name font-name))
   (set-default-font font-name))
 
