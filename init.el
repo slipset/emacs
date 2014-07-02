@@ -36,7 +36,7 @@
 
 (require 'auto-complete-config)
 ;(require 'kite)
-;(require 'egg)
+(require 'egg)
 (require 'test-case-mode)
 (require 'twittering-mode)
 
@@ -61,11 +61,7 @@
 (put 'downcase-region 'disabled nil)
 
 (setq split-height-threshold nil)
-<<<<<<< HEAD
-(setq split-width-threshold nil)
-=======
-(setq split-width-threshold 160)
->>>>>>> 5f663384c5b0730ca2a493f391852111855f5be0
+
 (setq ediff-split-window-function 'split-window-horizontally)
 (add-to-list 'ac-dictionary-directories (concat init-home-dir "ac-dict"))
 (ac-config-default)
