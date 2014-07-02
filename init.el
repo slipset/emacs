@@ -8,16 +8,17 @@
                          ;("melpa" . "http://melpa.milkbox.net/packages/")))
 
 (require 'ensure-packages)
+
 (setq ensure-packages
       '(projectile simple-httpd flymake-jslint
 		   flymake-cursor
 		   js2-mode git-gutter-fringe
-		   smart-mode-line test-case-mode twittering-mode
+		   test-case-mode twittering-mode
 		   cider))
 
 (ensure-packages-install-missing)
 
-(load-theme 'wombat)
+(load-theme 'bubbleberry)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
@@ -40,8 +41,8 @@
 
 (global-git-gutter-mode +1)
 
-(require 'smart-mode-line)
-(sml/setup)
+;(require 'smart-mode-line)
+;(sml/setup)
 
 (require 'cider)
 (setq cider-repl-pop-to-buffer-on-connect nil)
@@ -252,6 +253,9 @@ is available, go to the original location instead."
   (let ((tags-file (concat "~/workspace/prosjekthotell/" "TAGS")))
     (visit-tags-table tags-file)
     (message (concat "Loaded " tags-file))))
+(if (eq system-type 'darwin)
+    (set-frame-size (selected-frame) 162 54)
+  (set-frame-size (selected-frame) 162 80))
+  (split-window-horizontally)
 
-(set-frame-size (selected-frame) 162 80)
-(split-window-horizontally)
+(setq default-directory "~/")
