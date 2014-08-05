@@ -12,7 +12,7 @@
 
 (setq ensure-packages
       '(projectile simple-httpd flymake-jslint
-		   flymake-cursor git kite egg
+		   flymake-cursor git kite magit
 		   smart-tabs-mode js2-mode git-gutter-fringe
 		   test-case-mode twittering-mode
 		   clojure-mode clojure-test-mode cider
@@ -36,7 +36,7 @@
 
 (require 'auto-complete-config)
 ;(require 'kite)
-(require 'egg)
+(require 'magit)
 (require 'test-case-mode)
 (require 'twittering-mode)
 
