@@ -2,11 +2,11 @@
 
 (setq inhibit-startup-screen t)
 
-(setq init-home-dir "~/.emacs.d/")
-(add-to-list 'load-path init-home-dir)
+(setq init-home-dir (file-name-directory user-init-file))
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("marmalade" . "http://marmalade-repo.org/packages/")
-                         ("melpa" . "http://melpa.milkbox.net/packages/")))
+			 ("melpa" . "http://melpa.org/packages/")))
+(add-to-list 'load-path
+	     (expand-file-name "elisp" init-home-dir))
 
 (require 'ensure-packages)
 
@@ -17,6 +17,7 @@
 		   test-case-mode twittering-mode
 		   clojure-mode cider
 		   markdown-mode
+		   auto-complete
 		   purty-mode))
 
 (ensure-packages-install-missing)
@@ -116,10 +117,13 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("33cffbc75316519ccb6da6353e4a39d6c800f66af6003c92876ef37a1af07995" default)))
  '(httpd-port 8848)
  '(js-enabled-frameworks (quote (javascript extjs)))
  '(js2-global-externs (quote ("Ext")))
- '(lintnode-location "~/node/lintnode")
+ '(lintnode-location "~/node/lintnode" t)
  '(lintnode-node-program "nodejs"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
