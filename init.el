@@ -118,13 +118,14 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
-   (quote
-    ("33cffbc75316519ccb6da6353e4a39d6c800f66af6003c92876ef37a1af07995" default)))
+	 (quote
+		("ed5af4af1d148dc4e0e79e4215c85e7ed21488d63303ddde27880ea91112b07e" "33cffbc75316519ccb6da6353e4a39d6c800f66af6003c92876ef37a1af07995" default)))
  '(httpd-port 8848)
  '(js-enabled-frameworks (quote (javascript extjs)))
  '(js2-global-externs (quote ("Ext")))
  '(lintnode-location "~/node/lintnode" t)
- '(lintnode-node-program "nodejs"))
+ '(lintnode-node-program "nodejs")
+ '(tab-width 2))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
