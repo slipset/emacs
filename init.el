@@ -365,3 +365,5 @@ is available, go to the original location instead."
 
 (setq rcirc-authinfo
       '(("freenode" nickserv "slipset" "5l1p53t")))
+
+(load-theme 'deeper-blue)
