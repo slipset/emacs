@@ -20,7 +20,13 @@
 		   clojure-mode cider
 		   markdown-mode
 		   auto-complete
-		   purty-mode))
+			 yasnippet
+			 purty-mode
+			 sbt-mode
+			 ensime
+			 jabber
+			 emacs-eclim
+			 rcirc))
 
 (ensure-packages-install-missing)
 
@@ -129,18 +135,18 @@
  '(js2-global-externs (quote ("Ext")))
  '(lintnode-location "~/node/lintnode" t)
  '(lintnode-node-program "nodejs")
- '(tab-width 2))
+ '(tab-width 2)
+ '(rcirc-default-full-name "Erik Assum")
+ '(rcirc-default-nick "slipset")
+ '(tool-bar-mode nil)
+ '(yas-global-mode t nil (yasnippet)))
+
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
- '(rcirc-default-full-name "Erik Assum")
- '(rcirc-default-nick "slipset")
- '(tool-bar-mode nil)
- '(yas-global-mode t nil (yasnippet)))
-
 ;(setq indent-tabs-mode t) ;; use tabs for indentation
 
 ;(autoload 'smart-tabs-mode "smart-tabs-mode"
@@ -322,9 +328,13 @@ is available, go to the original location instead."
 
 (add-hook 'ensime-mode-hook 'my-ensime-mode-hook)
 
+(setq screen-width (x-display-pixel-width))
+(setq screen-height (x-display-pixel-height))
+																				;(load-theme 'bubbleberry)
+(cond
+ ((eq 1050 screen-height) (set-face-attribute 'default nil :height 100))
+ (true (set-face-attribute 'default nil :height 130)))
 
-(load-theme 'bubbleberry)
-(set-face-attribute 'default nil :height 130)
 (set-face-attribute 'default nil :family "Monaco")
 (toggle-frame-maximized)
 (require 'yasnippet)
@@ -346,7 +356,7 @@ is available, go to the original location instead."
 (setq help-at-pt-display-when-idle t)
 (setq help-at-pt-timer-delay 0.1)
 (help-at-pt-set-timer)
-
+(require 'rcirc)
 (setq rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY")) 
 
 (add-to-list 'rcirc-server-alist
