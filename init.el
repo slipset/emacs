@@ -8,6 +8,7 @@
 (add-to-list 'load-path
 	     (expand-file-name "elisp" init-home-dir))
 
+
 (require 'ensure-packages)
 
 (setq ensure-packages
@@ -15,6 +16,7 @@
 		   flymake-cursor git kite magit
 		   smart-tabs-mode js2-mode git-gutter-fringe
 		   test-case-mode twittering-mode
+		   auto-complete
 		   clojure-mode cider
 		   markdown-mode
 		   auto-complete
@@ -22,7 +24,7 @@
 
 (ensure-packages-install-missing)
 
-(load-theme 'bubbleberry)
+;(load-theme 'bubbleberry)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
@@ -120,6 +122,8 @@
  '(custom-safe-themes
 	 (quote
 		("ed5af4af1d148dc4e0e79e4215c85e7ed21488d63303ddde27880ea91112b07e" "33cffbc75316519ccb6da6353e4a39d6c800f66af6003c92876ef37a1af07995" default)))
+ '(eclim-eclipse-dirs (quote ("/Applications/eclipse")))
+ '(eclim-executable "/Applications/eclipse/eclim")
  '(httpd-port 8848)
  '(js-enabled-frameworks (quote (javascript extjs)))
  '(js2-global-externs (quote ("Ext")))
@@ -132,8 +136,12 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+ '(rcirc-default-full-name "Erik Assum")
+ '(rcirc-default-nick "slipset")
+ '(tool-bar-mode nil)
+ '(yas-global-mode t nil (yasnippet)))
 
-(setq indent-tabs-mode t) ;; use tabs for indentation
+;(setq indent-tabs-mode t) ;; use tabs for indentation
 
 ;(autoload 'smart-tabs-mode "smart-tabs-mode"
 ;   "Intelligently indent with tabs, align with spaces!")
@@ -159,11 +167,14 @@
 (setq cider-repl-result-prefix ";; => ")
 (setq cider-repl-use-clojure-font-lock t)
 (setq nrepl-port "4807")
+(add-hook 'cider-repl-mode-hook 'company-mode)
+(add-hook 'cider-mode-hook 'company-mode)
+
 (global-auto-revert-mode 1)
 
 (set-face-attribute 'default nil :height 100)
 	
-(modify-coding-system-alist 'file "\\.js\\'" 'utf-8-dos)
+(modify-coding-system-alist 'file "\\.js\\'" 'utf-8)
 
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'reverse)
@@ -220,11 +231,6 @@ is available, go to the original location instead."
             (kite--create-remote-script-buffer
              script-info (function after-load)))))))))
 
-;; sudo apt-get install ttf-inconsolata
-(setq font-name "Inconsolata-10")
-(when (find-font (font-spec :name font-name))
-  (set-default-font font-name))
-
 (setq kite-local-root "~/workspace/prosjekthotell")
 
 (defun kite-find-local-file (url-parts)
@@ -277,9 +283,75 @@ is available, go to the original location instead."
   (let ((tags-file (concat "~/workspace/prosjekthotell/" "TAGS")))
     (visit-tags-table tags-file)
     (message (concat "Loaded " tags-file))))
+
 (if (eq system-type 'darwin)
     (set-frame-size (selected-frame) 162 54)
   (set-frame-size (selected-frame) 162 80))
   (split-window-horizontally)
 
 (setq default-directory "~/")
+
+(require 'sbt-mode)
+(require 'ensime)
+(setq ensime-ac-override-settings t)
+(setq ensime-auto-connect t)
+(setq exec-path (append exec-path (list "/usr/local/bin" )))
+(add-hook 'scala-mode-hook 'ensime-scala-mode-hook)
+
+(defun eval-last-scala-expr ()
+  (interactive)
+  (let ((start (point)))
+    (save-excursion
+      (backward-sexp)
+      (beginning-of-line)
+      (ensime-inf-eval-region start (point)))))
+
+(defun my-ensime-mode-hook ()
+  (interactive)
+    (define-key ensime-mode-map (kbd "C-c C-r") 'ensime-inf-eval-region)
+    (define-key ensime-mode-map (kbd "M-e") 'ensime-inf-eval-region)
+    (define-key ensime-mode-map (kbd "C-c C-v b") 'ensime-inf-eval-buffer)
+    (define-key ensime-mode-map (kbd "C-c C-v l") 'ensime-inf-load-file)    
+    (define-key ensime-mode-map (kbd "C-x C-e") 'eval-last-scala-expr)
+    (define-key ensime-mode-map (kbd "C-c C-b s") 'ensime-sbt-switch)
+    (define-key ensime-mode-map (kbd "C-c C-b S") 'ensime-stacktrace-switch)
+    (define-key ensime-mode-map (kbd "C-c C-b c") 'ensime-sbt-do-compile)
+    (define-key ensime-mode-map (kbd "C-c C-b n") 'ensime-sbt-do-clean)
+    (define-key ensime-mode-map (kbd "C-c C-b p") 'ensime-sbt-do-package)
+    (define-key ensime-mode-map (kbd "C-c C-b t") 'ensime-sbt-do-test-quick))
+
+(add-hook 'ensime-mode-hook 'my-ensime-mode-hook)
+
+
+(load-theme 'bubbleberry)
+(set-face-attribute 'default nil :height 130)
+(set-face-attribute 'default nil :family "Monaco")
+(toggle-frame-maximized)
+(require 'yasnippet)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+(require 'jabber)
+(require 'eclim)
+(require 'eclimd)
+(global-eclim-mode)											;
+
+(require 'company-emacs-eclim)
+(company-emacs-eclim-setup)
+
+(setq help-at-pt-display-when-idle t)
+(setq help-at-pt-timer-delay 0.1)
+(help-at-pt-set-timer)
+
+(setq rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY")) 
+
+(add-to-list 'rcirc-server-alist
+	     '("irc.freenode.net"
+	       :channels ("#clojure")))
+
+(setq rcirc-authinfo
+      '(("freenode" nickserv "slipset" "5l1p53t")))
