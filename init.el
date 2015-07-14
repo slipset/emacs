@@ -15,7 +15,7 @@
       '(projectile simple-httpd flymake-jslint
 		   flymake-cursor git kite magit
 		   smart-tabs-mode js2-mode git-gutter-fringe
-		   test-case-mode twittering-mode
+		   twittering-mode
 		   auto-complete
 		   clojure-mode cider
 		   markdown-mode
@@ -26,6 +26,7 @@
 			 ensime
 			 jabber
 			 emacs-eclim
+			 editorconfig
 			 rcirc))
 
 (ensure-packages-install-missing)
@@ -37,7 +38,7 @@
 (line-number-mode t)
 (setq-default cursor-type 'bar)
 (global-linum-mode)
-
+(require 'editorconfig)
 (require 'js2-mode)
 (autoload 'js2-mode "js2" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
@@ -46,7 +47,9 @@
 (require 'auto-complete-config)
 ;(require 'kite)
 (require 'magit)
-(require 'test-case-mode)
+
+(add-hook 'git-gutter:update-hooks 'magit-revert-buffer-hook)
+(global-set-key (kbd "C-x C-g") 'magit-status)
 (require 'twittering-mode)
 
 ;(require 'purty-mode)
@@ -110,9 +113,7 @@
 (add-hook 'js2-mode-hook
           (lambda ()
             (flymake-mode t)
-	    (test-case-mode t)
-	    (egg-minor-mode)
-	    (setq tab-width 4)))
+						(setq tab-width 4)))
 
 ;; (add-hook 'js-mode-hook 'smart-tabs-mode-enable)
 
@@ -127,17 +128,19 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
 	 (quote
-		("ed5af4af1d148dc4e0e79e4215c85e7ed21488d63303ddde27880ea91112b07e" "33cffbc75316519ccb6da6353e4a39d6c800f66af6003c92876ef37a1af07995" default)))
+		("90d329edc17c6f4e43dbc67709067ccd6c0a3caa355f305de2041755986548f2" "ed5af4af1d148dc4e0e79e4215c85e7ed21488d63303ddde27880ea91112b07e" "33cffbc75316519ccb6da6353e4a39d6c800f66af6003c92876ef37a1af07995" default)))
  '(eclim-eclipse-dirs (quote ("/Applications/eclipse")))
  '(eclim-executable "/Applications/eclipse/eclim")
+ '(edconf-exec-path "C:\\Program Files (x86)\\editorconfig\\bin\\editorconfig")
  '(httpd-port 8848)
  '(js-enabled-frameworks (quote (javascript extjs)))
+ '(js2-basic-offset 2)
  '(js2-global-externs (quote ("Ext")))
  '(lintnode-location "~/node/lintnode" t)
  '(lintnode-node-program "nodejs")
- '(tab-width 2)
  '(rcirc-default-full-name "Erik Assum")
  '(rcirc-default-nick "slipset")
+ '(tab-width 2)
  '(tool-bar-mode nil)
  '(yas-global-mode t nil (yasnippet)))
 
@@ -246,36 +249,6 @@ is available, go to the original location instead."
     (cond (kite-local-root (concat kite-local-root (car (url-path-and-query url-parts))))
 	(t (url-filename url-parts)))))
 
-
-(defvar test-case-jasmine-font-lock-keywords
-  "Keywords to link failures back to"
-  (eval-when-compile
-    `((,(concat
-         `((,(concat "\\_<\\(?:it\\)\\_>")
-       (0 'test-case-assertion append))))))))
-
-(defun test-case-jasmine-failure-pattern ()
-  "Regexp to match errors in jasmine tests"
-  (eval-when-compile
-    `(,(concat "^[^ \t]+([^ \t]+) "
-               "\\[\\(\\([^:]+\\):\\([[:digit:]]+\\)\\)\\]:\n"
-               "\\(\\(.+\n\\)*\\)\n")
-      2 3 nil 1 4)))
-
-(defun test-case-jasmine-backend (command)
-  "Javascript Jasmine backend for `test-case-mode`"
-  (case command
-    ('name "Jasmine")
-    ('supported (or (derived-mode-p 'js2-mode)
-                    (string-match "Test.js" (buffer-file-name))))
-
-    ('command "cd ~/workspace/prosjekthotell; phantomjs app-test/run-jasmine.js jasmine.html")
-    ('save t)
-    ('failure-pattern (test-case-jasmine-failure-pattern))
-    ('font-lock-keywords test-case-jasmine-font-lock-keywords)))
-
-(add-to-list 'test-case-backends 'test-case-jasmine-backend)
-
 (defun build-ctags ()
   (interactive)
   (message "building project tags")
@@ -333,17 +306,12 @@ is available, go to the original location instead."
 																				;(load-theme 'bubbleberry)
 (cond
  ((eq 1050 screen-height) (set-face-attribute 'default nil :height 100))
- (true (set-face-attribute 'default nil :height 130)))
+ ('t (set-face-attribute 'default nil :height 130)))
 
-(set-face-attribute 'default nil :family "Monaco")
+(set-face-attribute 'default nil :family "Consolas")
 (toggle-frame-maximized)
 (require 'yasnippet)
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+
 
 (require 'jabber)
 (require 'eclim)
@@ -367,3 +335,9 @@ is available, go to the original location instead."
       '(("freenode" nickserv "slipset" "5l1p53t")))
 
 (load-theme 'deeper-blue)
+
+(require 'atom-dark-theme)
+(require 'whitespace)
+(setq whitespace-line-column 80) ;; limit line length
+(setq whitespace-style '(face tabs empty trailing lines-tail))
+(global-whitespace-mode 1)
