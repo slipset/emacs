@@ -1,0 +1,5 @@
+(setq default-input-method "MacOSX")
+(setq mac-option-modifier 'none)
+(setq mac-command-modifier 'meta)))
+(set-frame-size (selected-frame) 162 54)
+(provide 'slipset-osx)

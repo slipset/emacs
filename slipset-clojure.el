@@ -1,0 +1,17 @@
+(require 'cider)
+
+(setq cider-repl-pop-to-buffer-on-connect nil)
+(setq cider-repl-result-prefix ";; => ")
+(setq cider-repl-use-clojure-font-lock t)
+(setq nrepl-hide-special-buffers t)
+(add-hook 'cider-mode-hook 'cider-turn-on-eldoc-mode)
+(add-hook 'cider-mode-hook 'purty-mode)
+(setq cider-popup-stacktraces nil)
+(setq cider-repl-print-length 100000)
+(setq cider-repl-result-prefix ";; => ")
+(setq cider-repl-use-clojure-font-lock t)
+(setq nrepl-port "4807")
+(add-hook 'cider-repl-mode-hook 'company-mode)
+(add-hook 'cider-mode-hook 'company-mode)
+
+(provide 'slipset-clojure)
