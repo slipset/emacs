@@ -86,10 +86,6 @@
  '(eclim-executable "/Applications/eclipse/eclim")
  '(edconf-exec-path "C:\\Program Files (x86)\\editorconfig\\bin\\editorconfig")
  '(httpd-port 8848)
- '(js2-basic-offset 2)
- '(js2-global-externs (quote ("Ext")))
- '(rcirc-default-full-name "Erik Assum")
- '(rcirc-default-nick "slipset")
  '(safe-local-variable-values (quote ((whitespace-cleanup-mode . t))))
  '(tab-width 2)
  '(yas-global-mode t nil (yasnippet)))
@@ -116,4 +112,4 @@
 (setq whitespace-style '(face tabs empty trailing lines-tail))
 (global-whitespace-mode 1)
 
-(add-hook 'emacs-lisp-mode 'enable-paredit-mode)
+(add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
