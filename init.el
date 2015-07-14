@@ -31,6 +31,12 @@
 
 (ensure-packages-install-missing)
 
+(if (eq system-type 'darwin)
+		(require 'slipset-osx))
+
+(if (eq system-type 'windows-nt)
+		(require 'slipset-windows-nt))
+
 (require 'flymake-cursor)
 (require 'editorconfig)
 (require 'auto-complete-config)
@@ -40,12 +46,7 @@
 (require 'slipset-scala)
 (require 'slipset-display)
 (require 'slipset-irc)
-
-(if (eq system-type 'darwin)
-		(require 'slipset-osx))
-
-(if (eq system-type 'windows-nt)
-		(require 'slipset-windows-nt))
+(require 'slipset-java)
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -108,16 +109,6 @@
 
 (require 'yasnippet)
 (require 'jabber)
-(require 'eclim)
-(require 'eclimd)
-(global-eclim-mode)
-
-(require 'company-emacs-eclim)
-(company-emacs-eclim-setup)
-
-(setq help-at-pt-display-when-idle t)
-(setq help-at-pt-timer-delay 0.1)
-(help-at-pt-set-timer)
 
 (require 'whitespace)
 (setq whitespace-line-column 80) ;; limit line length
@@ -125,5 +116,3 @@
 (global-whitespace-mode 1)
 
 (add-hook 'emacs-lisp-mode 'enable-paredit-mode)
-
-
