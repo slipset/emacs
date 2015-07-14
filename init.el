@@ -4,34 +4,33 @@
 
 (setq init-home-dir (file-name-directory user-init-file))
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-			 ("melpa" . "http://melpa.org/packages/")))
+												 ("melpa" . "http://melpa.org/packages/")))
 (add-to-list 'load-path
-	     (expand-file-name "elisp" init-home-dir))
+						 (expand-file-name "elisp" init-home-dir))
 
 
 (require 'ensure-packages)
 
 (setq ensure-packages
       '(projectile simple-httpd flymake-jslint
-		   flymake-cursor git kite magit
-		   smart-tabs-mode js2-mode git-gutter-fringe
-		   twittering-mode
-		   auto-complete
-		   clojure-mode cider
-		   markdown-mode
-		   auto-complete
-			 yasnippet
-			 purty-mode
-			 sbt-mode
-			 ensime
-			 jabber
-			 emacs-eclim
-			 editorconfig
-			 rcirc))
+									 flymake-cursor git kite magit
+									 smart-tabs-mode js2-mode git-gutter-fringe
+									 twittering-mode
+									 auto-complete
+									 clojure-mode cider
+									 markdown-mode
+									 auto-complete
+									 yasnippet
+									 purty-mode
+									 sbt-mode
+									 ensime
+									 jabber
+									 emacs-eclim
+									 editorconfig
+									 rcirc))
 
 (ensure-packages-install-missing)
 
-;(load-theme 'bubbleberry)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
@@ -45,16 +44,16 @@
 (define-key js2-mode-map (kbd "C-c r") 'kite-reload-page)
 
 (require 'auto-complete-config)
-;(require 'kite)
+																				;(require 'kite)
 (require 'magit)
 
 (add-hook 'git-gutter:update-hooks 'magit-revert-buffer-hook)
 (global-set-key (kbd "C-x C-g") 'magit-status)
 (require 'twittering-mode)
 
-;(require 'purty-mode)
-;(purty-add-pair '("\\(->\\)" . "→"))
-;(purty-add-pair '("\\(->>\\)" . "↠"))
+																				;(require 'purty-mode)
+																				;(purty-add-pair '("\\(->\\)" . "→"))
+																				;(purty-add-pair '("\\(->>\\)" . "↠"))
 
 
 
@@ -62,8 +61,8 @@
 
 (global-git-gutter-mode +1)
 
-;(require 'smart-mode-line)
-;(sml/setup)
+																				;(require 'smart-mode-line)
+																				;(sml/setup)
 
 (require 'cider)
 (setq cider-repl-pop-to-buffer-on-connect nil)
@@ -79,15 +78,15 @@
 (ac-config-default)
 
 
-; Use dictionaries by default
+																				; Use dictionaries by default
 (setq-default ac-sources (add-to-list 'ac-sources 'ac-source-dictionary))
 (global-auto-complete-mode t)
-; Start auto-completion after 2 characters of a word
+																				; Start auto-completion after 2 characters of a word
 (setq ac-auto-start 2)
-; case sensitivity is important when finding matches
+																				; case sensitivity is important when finding matches
 (setq ac-ignore-case nil)
 
- (define-key global-map (kbd "RET") 'newline-and-indent)
+(define-key global-map (kbd "RET") 'newline-and-indent)
 
 (require 'projectile)
 (projectile-global-mode)
@@ -120,7 +119,7 @@
 (require 'flymake-cursor)
 
 (add-to-list 'load-path "/usr/share/emacs24/site-lisp/git/")
-;(require 'git)
+
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -128,7 +127,9 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
 	 (quote
-		("90d329edc17c6f4e43dbc67709067ccd6c0a3caa355f305de2041755986548f2" "ed5af4af1d148dc4e0e79e4215c85e7ed21488d63303ddde27880ea91112b07e" "33cffbc75316519ccb6da6353e4a39d6c800f66af6003c92876ef37a1af07995" default)))
+		("90d329edc17c6f4e43dbc67709067ccd6c0a3caa355f305de2041755986548f2"
+		 "ed5af4af1d148dc4e0e79e4215c85e7ed21488d63303ddde27880ea91112b07e"
+		 "33cffbc75316519ccb6da6353e4a39d6c800f66af6003c92876ef37a1af07995" default)))
  '(eclim-eclipse-dirs (quote ("/Applications/eclipse")))
  '(eclim-executable "/Applications/eclipse/eclim")
  '(edconf-exec-path "C:\\Program Files (x86)\\editorconfig\\bin\\editorconfig")
@@ -150,21 +151,18 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-;(setq indent-tabs-mode t) ;; use tabs for indentation
+																				;(setq indent-tabs-mode t) ;; use tabs for indentation
 
-;(autoload 'smart-tabs-mode "smart-tabs-mode"
-;   "Intelligently indent with tabs, align with spaces!")
-;(autoload 'smart-tabs-mode-enable "smart-tabs-mode")
-;(autoload 'smart-tabs-advice "smart-tabs-mode")
-;(autoload 'smart-tabs-insinuate "smart-tabs-mode")
+																				;(autoload 'smart-tabs-mode "smart-tabs-mode"
+																				;   "Intelligently indent with tabs, align with spaces!")
+																				;(autoload 'smart-tabs-mode-enable "smart-tabs-mode")
+																				;(autoload 'smart-tabs-advice "smart-tabs-mode")
+																				;(autoload 'smart-tabs-insinuate "smart-tabs-mode")
 
-;(smart-tabs-advice js-indent-line js-basic-offset)
-;(smart-tabs-insinuate 'c 'c++ 'java 'javascript 'cperl 'python
-;                        'ruby 'nxml)
+																				;(smart-tabs-advice js-indent-line js-basic-offset)
+																				;(smart-tabs-insinuate 'c 'c++ 'java 'javascript 'cperl 'python
+																				;                        'ruby 'nxml)
 (setq tab-width 4)        ;; set your desired tab width
-
-(require 'projectile)
-(add-hook 'js2-mode-hook 'projectile-on)
 
 ;; Clojure stuff
 (require 'cider)
@@ -181,8 +179,6 @@
 
 (global-auto-revert-mode 1)
 
-(set-face-attribute 'default nil :height 100)
-	
 (modify-coding-system-alist 'file "\\.js\\'" 'utf-8)
 
 (require 'uniquify)
@@ -203,7 +199,6 @@
   (interactive)
   (kill-chrome)
   (start-chrome))
-  
 
 (defun kite-visit-script (script-info line column after-load-function)
   "Visit the script described by the given SCRIPT-INFO and, once
@@ -218,27 +213,27 @@ is available, go to the original location instead."
          (url (plist-get original-source :url))
          (url-parts (url-generic-parse-url url)))
     (flet
-     ((after-load ()
-                  (goto-char (point-min))
-                  (forward-line
-                   (1- (plist-get original-source :line)))
-                  (beginning-of-line)
-                  (forward-char
-                   (plist-get original-source :column))
-                  (funcall after-load-function)))
-	 (debug)
-     (cond
-      ((string= (url-type url-parts) "file")
-       (find-file (url-filename url-parts))
-       (after-load))
-      (kite-local-root 
-       (find-file (kite-find-local-file url-parts))
-       (after-load))
-      (t
-       (switch-to-buffer
-        (or (get-buffer url)
-            (kite--create-remote-script-buffer
-             script-info (function after-load)))))))))
+				((after-load ()
+										 (goto-char (point-min))
+										 (forward-line
+											(1- (plist-get original-source :line)))
+										 (beginning-of-line)
+										 (forward-char
+											(plist-get original-source :column))
+										 (funcall after-load-function)))
+			(debug)
+			(cond
+			 ((string= (url-type url-parts) "file")
+				(find-file (url-filename url-parts))
+				(after-load))
+			 (kite-local-root
+				(find-file (kite-find-local-file url-parts))
+				(after-load))
+			 (t
+				(switch-to-buffer
+				 (or (get-buffer url)
+						 (kite--create-remote-script-buffer
+							script-info (function after-load)))))))))
 
 (setq kite-local-root "~/workspace/prosjekthotell")
 
@@ -247,7 +242,7 @@ is available, go to the original location instead."
   (interactive)
   (progn
     (cond (kite-local-root (concat kite-local-root (car (url-path-and-query url-parts))))
-	(t (url-filename url-parts)))))
+					(t (url-filename url-parts)))))
 
 (defun build-ctags ()
   (interactive)
@@ -266,7 +261,7 @@ is available, go to the original location instead."
 (if (eq system-type 'darwin)
     (set-frame-size (selected-frame) 162 54)
   (set-frame-size (selected-frame) 162 80))
-  (split-window-horizontally)
+(split-window-horizontally)
 
 (setq default-directory "~/")
 
@@ -287,36 +282,37 @@ is available, go to the original location instead."
 
 (defun my-ensime-mode-hook ()
   (interactive)
-    (define-key ensime-mode-map (kbd "C-c C-r") 'ensime-inf-eval-region)
-    (define-key ensime-mode-map (kbd "M-e") 'ensime-inf-eval-region)
-    (define-key ensime-mode-map (kbd "C-c C-v b") 'ensime-inf-eval-buffer)
-    (define-key ensime-mode-map (kbd "C-c C-v l") 'ensime-inf-load-file)    
-    (define-key ensime-mode-map (kbd "C-x C-e") 'eval-last-scala-expr)
-    (define-key ensime-mode-map (kbd "C-c C-b s") 'ensime-sbt-switch)
-    (define-key ensime-mode-map (kbd "C-c C-b S") 'ensime-stacktrace-switch)
-    (define-key ensime-mode-map (kbd "C-c C-b c") 'ensime-sbt-do-compile)
-    (define-key ensime-mode-map (kbd "C-c C-b n") 'ensime-sbt-do-clean)
-    (define-key ensime-mode-map (kbd "C-c C-b p") 'ensime-sbt-do-package)
-    (define-key ensime-mode-map (kbd "C-c C-b t") 'ensime-sbt-do-test-quick))
+	(define-key ensime-mode-map (kbd "C-c C-r") 'ensime-inf-eval-region)
+	(define-key ensime-mode-map (kbd "M-e") 'ensime-inf-eval-region)
+	(define-key ensime-mode-map (kbd "C-c C-v b") 'ensime-inf-eval-buffer)
+	(define-key ensime-mode-map (kbd "C-c C-v l") 'ensime-inf-load-file)
+	(define-key ensime-mode-map (kbd "C-x C-e") 'eval-last-scala-expr)
+	(define-key ensime-mode-map (kbd "C-c C-b s") 'ensime-sbt-switch)
+	(define-key ensime-mode-map (kbd "C-c C-b S") 'ensime-stacktrace-switch)
+	(define-key ensime-mode-map (kbd "C-c C-b c") 'ensime-sbt-do-compile)
+	(define-key ensime-mode-map (kbd "C-c C-b n") 'ensime-sbt-do-clean)
+	(define-key ensime-mode-map (kbd "C-c C-b p") 'ensime-sbt-do-package)
+	(define-key ensime-mode-map (kbd "C-c C-b t") 'ensime-sbt-do-test-quick))
 
 (add-hook 'ensime-mode-hook 'my-ensime-mode-hook)
 
 (setq screen-width (x-display-pixel-width))
 (setq screen-height (x-display-pixel-height))
-																				;(load-theme 'bubbleberry)
+
 (cond
  ((eq 1050 screen-height) (set-face-attribute 'default nil :height 100))
  ('t (set-face-attribute 'default nil :height 130)))
 
 (set-face-attribute 'default nil :family "Consolas")
+(set-face-attribute 'default nil :height 100)
+
 (toggle-frame-maximized)
 (require 'yasnippet)
-
 
 (require 'jabber)
 (require 'eclim)
 (require 'eclimd)
-(global-eclim-mode)											;
+(global-eclim-mode)
 
 (require 'company-emacs-eclim)
 (company-emacs-eclim-setup)
@@ -325,11 +321,11 @@ is available, go to the original location instead."
 (setq help-at-pt-timer-delay 0.1)
 (help-at-pt-set-timer)
 (require 'rcirc)
-(setq rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY")) 
+(setq rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY"))
 
 (add-to-list 'rcirc-server-alist
-	     '("irc.freenode.net"
-	       :channels ("#clojure")))
+						 '("irc.freenode.net"
+							 :channels ("#clojure")))
 
 (setq rcirc-authinfo
       '(("freenode" nickserv "slipset" "5l1p53t")))
