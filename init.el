@@ -54,6 +54,7 @@
 (line-number-mode t)
 (setq-default cursor-type 'bar)
 (global-linum-mode)
+(setq linum-format "%4d\u2502")
 (put 'downcase-region 'disabled nil)
 (setq split-height-threshold nil)
 (setq ediff-split-window-function 'split-window-horizontally)
