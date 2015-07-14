@@ -8,6 +8,7 @@
 (add-to-list 'load-path
 						 (expand-file-name "elisp" init-home-dir))
 
+(require 'slipset-funs)
 (require 'ensure-packages)
 
 (setq ensure-packages
@@ -38,6 +39,7 @@
 (require 'slipset-javascript)
 (require 'slipset-scala)
 (require 'slipset-display)
+(require 'slipset-irc)
 
 (if (eq system-type 'darwin)
 		(require 'slipset-osx))
@@ -77,9 +79,7 @@
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
 	 (quote
-		("90d329edc17c6f4e43dbc67709067ccd6c0a3caa355f305de2041755986548f2"
-		 "ed5af4af1d148dc4e0e79e4215c85e7ed21488d63303ddde27880ea91112b07e"
-		 "33cffbc75316519ccb6da6353e4a39d6c800f66af6003c92876ef37a1af07995" default)))
+		("90d329edc17c6f4e43dbc67709067ccd6c0a3caa355f305de2041755986548f2" "ed5af4af1d148dc4e0e79e4215c85e7ed21488d63303ddde27880ea91112b07e" "33cffbc75316519ccb6da6353e4a39d6c800f66af6003c92876ef37a1af07995" default)))
  '(eclim-eclipse-dirs (quote ("/Applications/eclipse")))
  '(eclim-executable "/Applications/eclipse/eclim")
  '(edconf-exec-path "C:\\Program Files (x86)\\editorconfig\\bin\\editorconfig")
@@ -88,6 +88,7 @@
  '(js2-global-externs (quote ("Ext")))
  '(rcirc-default-full-name "Erik Assum")
  '(rcirc-default-nick "slipset")
+ '(safe-local-variable-values (quote ((whitespace-cleanup-mode . t))))
  '(tab-width 2)
  '(yas-global-mode t nil (yasnippet)))
 
@@ -117,18 +118,12 @@
 (setq help-at-pt-display-when-idle t)
 (setq help-at-pt-timer-delay 0.1)
 (help-at-pt-set-timer)
-(require 'rcirc)
-(setq rcirc-omit-responses '("JOIN" "PART" "QUIT" "NICK" "AWAY"))
 
-(add-to-list 'rcirc-server-alist
-						 '("irc.freenode.net"
-							 :channels ("#clojure")))
-
-(setq rcirc-authinfo
-      '(("freenode" nickserv "slipset" "5l1p53t")))
-
-(load-theme 'atom-dark-theme)
 (require 'whitespace)
 (setq whitespace-line-column 80) ;; limit line length
 (setq whitespace-style '(face tabs empty trailing lines-tail))
 (global-whitespace-mode 1)
+
+(add-hook 'emacs-lisp-mode 'enable-paredit-mode)
+
+

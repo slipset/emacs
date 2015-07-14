@@ -13,4 +13,6 @@
 
 (toggle-frame-maximized)
 
+(load-theme 'atom-dark)
+
 (provide 'slipset-display)
