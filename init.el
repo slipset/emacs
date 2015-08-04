@@ -37,6 +37,7 @@
 (if (eq system-type 'windows-nt)
 		(require 'slipset-windows-nt))
 
+(require 'paredit-menu)
 (require 'flymake-cursor)
 (require 'editorconfig)
 (require 'auto-complete-config)
