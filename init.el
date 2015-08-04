@@ -26,6 +26,7 @@
 									 ensime
 									 jabber
 									 emacs-eclim
+									 atom-dark-theme
 									 editorconfig
 									 rcirc))
 
