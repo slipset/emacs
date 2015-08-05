@@ -54,6 +54,8 @@
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
 (line-number-mode t)
+(display-time-mode t)
+(setq display-time-24hr-format t)
 (setq-default cursor-type 'bar)
 (global-linum-mode)
 (setq linum-format "%4d\u2502")
