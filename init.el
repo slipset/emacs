@@ -29,7 +29,8 @@
 									 atom-dark-theme
 									 editorconfig
 									 rcirc
-									 diminish))
+									 diminish
+									 angularjs-mode))
 
 (ensure-packages-install-missing)
 
@@ -113,6 +114,9 @@
 (setq default-directory "~/")
 
 (require 'yasnippet)
+(define-key yas-minor-mode-map (kbd "<tab>") nil)
+(define-key yas-minor-mode-map (kbd "TAB") nil)
+(define-key yas-minor-mode-map (kbd "SPC") 'yas-expand)
 (require 'jabber)
 
 (require 'whitespace)
