@@ -7,6 +7,6 @@
 (setq slipset-eclim-eclipse-dirs '("/Applications/eclipse"))
 
 (setq slipset-font-family "Monaco")
-
+(setq slipset-edconf-exec-path "/usr/local/bin/editorconfig")
 
 (provide 'slipset-osx)
