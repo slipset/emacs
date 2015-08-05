@@ -10,7 +10,7 @@
 
 (require 'slipset-funs)
 (require 'ensure-packages)
-(require )
+
 (setq ensure-packages
       '(projectile simple-httpd flymake-jslint
 									 flymake-cursor git kite magit
@@ -30,6 +30,7 @@
 									 editorconfig
 									 rcirc
 									 diminish
+									 paredit-menu
 									 clojure-snippets))
 
 (ensure-packages-install-missing)
