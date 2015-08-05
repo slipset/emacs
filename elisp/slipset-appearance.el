@@ -6,7 +6,6 @@
 (diminish 'auto-complete-mode)
 (diminish 'git-gutter-mode)
 (diminish 'yas-minor-mode)
-(diminish 'auto-fill-mode)
 
 (defmacro rename-modeline (package-name mode new-name)
   `(eval-after-load ,package-name

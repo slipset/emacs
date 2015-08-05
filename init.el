@@ -10,7 +10,7 @@
 
 (require 'slipset-funs)
 (require 'ensure-packages)
-
+(require )
 (setq ensure-packages
       '(projectile simple-httpd flymake-jslint
 									 flymake-cursor git kite magit
@@ -30,9 +30,14 @@
 									 editorconfig
 									 rcirc
 									 diminish
-									 angularjs-mode))
+									 clojure-snippets))
 
 (ensure-packages-install-missing)
+
+(require 'whitespace)
+(setq whitespace-line-column 80) ;; limit line length
+(setq whitespace-style '(face tabs empty trailing lines-tail))
+(global-whitespace-mode 1)
 
 (if (eq system-type 'darwin)
 		(require 'slipset-osx))
@@ -52,6 +57,7 @@
 (require 'slipset-irc)
 (require 'slipset-java)
 (require 'slipset-appearance)
+(require 'slipset-yasnippet)
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -80,7 +86,6 @@
 (projectile-global-mode)
 (setq projectile-mode-line '(:eval (format " [%]" (projectile-project-name))))
 
-
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (custom-set-variables
@@ -96,8 +101,7 @@
  '(edconf-exec-path "C:\\Program Files (x86)\\editorconfig\\bin\\editorconfig")
  '(httpd-port 8848)
  '(safe-local-variable-values (quote ((whitespace-cleanup-mode . t))))
- '(tab-width 2)
- '(yas-global-mode t nil (yasnippet)))
+ '(tab-width 2))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -113,15 +117,7 @@
 
 (setq default-directory "~/")
 
-(require 'yasnippet)
-(define-key yas-minor-mode-map (kbd "<tab>") nil)
-(define-key yas-minor-mode-map (kbd "TAB") nil)
-(define-key yas-minor-mode-map (kbd "SPC") 'yas-expand)
 (require 'jabber)
 
-(require 'whitespace)
-(setq whitespace-line-column 80) ;; limit line length
-(setq whitespace-style '(face tabs empty trailing lines-tail))
-(global-whitespace-mode 1)
 
 (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
