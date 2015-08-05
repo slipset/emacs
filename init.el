@@ -28,7 +28,8 @@
 									 emacs-eclim
 									 atom-dark-theme
 									 editorconfig
-									 rcirc))
+									 rcirc
+									 diminish))
 
 (ensure-packages-install-missing)
 
@@ -49,6 +50,7 @@
 (require 'slipset-display)
 (require 'slipset-irc)
 (require 'slipset-java)
+(require 'slipset-appearance)
 
 (tool-bar-mode -1)
 (menu-bar-mode -1)
@@ -75,6 +77,8 @@
 
 (require 'projectile)
 (projectile-global-mode)
+(setq projectile-mode-line '(:eval (format " [%]" (projectile-project-name))))
+
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
