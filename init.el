@@ -83,7 +83,7 @@
 
 (require 'projectile)
 (projectile-global-mode)
-(setq projectile-mode-line '(:eval (format " [%]" (projectile-project-name))))
+(setq projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
