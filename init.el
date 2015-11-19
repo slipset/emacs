@@ -29,6 +29,7 @@
 				   editorconfig
 				   rcirc
 				   diminish
+				   paredit
 				   paredit-menu
 				   clojure-snippets))
 
@@ -46,6 +47,7 @@
     (require 'slipset-windows-nt))
 
 (require 'yasnippet)
+(require 'paredit)
 (require 'paredit-menu)
 (require 'flymake-cursor)
 (require 'editorconfig)
