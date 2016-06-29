@@ -62,6 +62,12 @@
 (require 'slipset-appearance)
 (require 'slipset-yasnippet)
 
+(require 'eshell)
+
+(setq eshell-visual-commands
+      '("less" "tmux" "htop" "top" "bash" "zsh" "fish"))
+(setq eshell-visual-subcommands
+      '(("git" "log" "l" "diff" "show")))
 (tool-bar-mode -1)
 (menu-bar-mode 1)
 (scroll-bar-mode -1)
@@ -95,8 +101,14 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-names-vector
+   ["black" "red3" "green3" "yellow3" "SkyBlue1" "magenta3" "cyan3" "gray90"])
  '(httpd-port 8848)
- '(safe-local-variable-values (quote ((whitespace-cleanup-mode . t)))))
+ '(inf-clojure-program "planck --theme dark")
+ '(safe-local-variable-values
+   (quote
+    ((bug-reference-bug-regexp . "#\\(?2:[[:digit:]]+\\)")
+     (whitespace-cleanup-mode . t)))))
 
 (global-auto-revert-mode 1)
 
@@ -110,3 +122,10 @@
 (setq edconf-exec-path slipset-edconf-exec-path)
 
 (add-hook 'emacs-lisp-mode-hook 'enable-paredit-mode)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+(put 'narrow-to-region 'disabled nil)
