@@ -103,6 +103,9 @@
  ;; If there is more than one, they won't work right.
  '(ansi-color-names-vector
    ["black" "red3" "green3" "yellow3" "SkyBlue1" "magenta3" "cyan3" "gray90"])
+ '(custom-safe-themes
+   (quote
+    ("a1289424bbc0e9f9877aa2c9a03c7dfd2835ea51d8781a0bf9e2415101f70a7e" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(httpd-port 8848)
  '(inf-clojure-program "planck --theme dark")
  '(safe-local-variable-values
@@ -127,5 +130,12 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(breakpoint-enabled ((t (:foreground "red1" :weight normal))))
+ '(buffer-menu-buffer ((t (:weight normal))))
+ '(custom-variable-tag ((t (:foreground "light blue" :weight normal))))
+ '(font-lock-warning-face ((t (:foreground "#ff982d" :weight normal))))
+ '(magit-diff-file-heading ((t (:weight normal))))
+ '(magit-section-heading ((t (:foreground "LightGoldenrod2" :weight normal))))
+ '(mode-line ((t (:background "grey12" :foreground "#96CBFE"))))
+ '(mode-line-buffer-id ((t (:weight normal)))))
 (put 'narrow-to-region 'disabled nil)
