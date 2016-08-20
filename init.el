@@ -17,6 +17,7 @@
 				   twittering-mode
 				   auto-complete
 				   clojure-mode cider
+				   clj-refactor
 				   markdown-mode
 				   auto-complete
 				   yasnippet
@@ -62,12 +63,13 @@
 (require 'slipset-appearance)
 (require 'slipset-yasnippet)
 
-(require 'eshell)
+;; ;(require 'eshell)
 
-(setq eshell-visual-commands
-      '("less" "tmux" "htop" "top" "bash" "zsh" "fish"))
-(setq eshell-visual-subcommands
-      '(("git" "log" "l" "diff" "show")))
+
+;; (setq eshell-visual-commands
+;;       '("less" "tmux" "htop" "top" "bash" "zsh" "fish"))
+;; (setq eshell-visual-subcommands
+;;       '(("git" "log" "l" "diff" "show")))
 (tool-bar-mode -1)
 (menu-bar-mode 1)
 (scroll-bar-mode -1)

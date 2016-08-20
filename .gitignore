@@ -44,3 +44,7 @@ tramp
 
 ac-dict
 url
+projectile-bookmarks.eld
+
+ensime
+ac-comphist.dat

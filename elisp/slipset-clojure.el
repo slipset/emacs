@@ -1,5 +1,5 @@
 (require 'cider)
-
+(require 'clj-refactor)
 					;(setq cider-repl-pop-to-buffer-on-connect nil)
 (setq cider-lein-command "/usr/local/bin/lein")
 (setq cider-repl-result-prefix ";; => ")
@@ -19,6 +19,7 @@
 (add-hook 'cider-mode-hook 'enable-paredit-mode)
 
 (add-hook 'clojure-mode-hook 'enable-paredit-mode)
+(add-hook 'clojure-mode-hook 'clj-refactor-mode)
 
 (provide 'slipset-clojure)
 

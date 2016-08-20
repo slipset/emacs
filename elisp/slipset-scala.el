@@ -1,5 +1,6 @@
 (require 'sbt-mode)
 (require 'ensime)
+(setq ensime-sbt-command "/usr/local/bin/sbt")
 (setq ensime-ac-override-settings t)
 (setq ensime-auto-connect t)
 (setq exec-path (append exec-path (list "/usr/local/bin" )))
