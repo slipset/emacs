@@ -1,5 +1,12 @@
 ;; my emacs config
 
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (setq inhibit-startup-screen t)
 
 (setq init-home-dir (file-name-directory user-init-file))
@@ -7,6 +14,8 @@
 			 ("melpa" . "http://melpa.org/packages/")))
 (add-to-list 'load-path
 	     (expand-file-name "elisp" init-home-dir))
+
+
 
 (require 'slipset-funs)
 (require 'ensure-packages)
@@ -32,7 +41,8 @@
 				   diminish
 				   paredit
 				   paredit-menu
-				   clojure-snippets))
+				   clojure-snippets
+				   cider-hydra))
 
 (ensure-packages-install-missing)
 
@@ -110,6 +120,9 @@
     ("a1289424bbc0e9f9877aa2c9a03c7dfd2835ea51d8781a0bf9e2415101f70a7e" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(httpd-port 8848)
  '(inf-clojure-program "planck --theme dark")
+ '(package-selected-packages
+   (quote
+    (cider-hydra htmlize twittering-mode solarized-theme smart-tabs-mode simple-httpd scala-mode2 purty-mode projectile paredit-menu markdown-mode magit kite js2-mode jabber inf-clojure git-gutter-fringe git flymake-jslint flymake-cursor ensime emacs-eclim editorconfig diminish clojure-snippets clojure-mode-extra-font-locking clj-refactor auto-complete atom-dark-theme)))
  '(safe-local-variable-values
    (quote
     ((bug-reference-bug-regexp . "#\\(?2:[[:digit:]]+\\)")
