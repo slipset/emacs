@@ -8,7 +8,7 @@
 
 (setq slipset-font-family "Monoid")
 (when (window-system)
-  (set-default-font "Monoid"))
+  (set-default-font slipset-font-family))
 (mac-auto-operator-composition-mode)
 (setq slipset-edconf-exec-path "/usr/local/bin/editorconfig")
 

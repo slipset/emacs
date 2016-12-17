@@ -14,5 +14,6 @@
 
 (rename-modeline "js2-mode" js2-mode "JS2")
 (rename-modeline "clojure-mode" clojure-mode "Clj")
+(rename-modeline "clojure-mode" clojurescript-mode "Cljs")
 
 (provide 'slipset-appearance)
