@@ -12,4 +12,9 @@
 (mac-auto-operator-composition-mode)
 (setq slipset-edconf-exec-path "/usr/local/bin/editorconfig")
 
+(cond ((and (= 2560 (display-pixel-width))
+	    (= 1440 (display-pixel-height)))
+       (set-face-attribute 'default nil :height 110)))
+
+
 (provide 'slipset-osx)
