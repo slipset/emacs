@@ -77,9 +77,12 @@
 
 (setq fci-rule-color "grey30")
 (setq fci-rule-column 80)
+(setq fci-handle-truncate-lines nil)
+(set-default 'truncate-lines nil)
 (define-globalized-minor-mode global-fci-mode fci-mode (lambda () (fci-mode 1)))
 (global-fci-mode 1)
-(setq truncate-lines nil)
+
+
 ;; ;(require 'eshell)
 
 (setq eshell-prompt-function (lambda nil
