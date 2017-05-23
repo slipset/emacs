@@ -34,7 +34,7 @@
 				   sbt-mode
 				   ensime
 				   jabber
-				   emacs-eclim
+;				   emacs-eclim
 				   atom-dark-theme
 				   editorconfig
 				   rcirc
@@ -47,9 +47,9 @@
 (ensure-packages-install-missing)
 
 (require 'whitespace)
-(setq whitespace-line-column 80) ;; limit line length
-(setq whitespace-style '(face tabs empty trailing lines-tail))
-(global-whitespace-mode 1)
+;(setq whitespace-line-column 80) ;; limit line length
+(setq whitespace-style '(face tabs empty trailing))
+(global-whitespace-mode 0)
 
 (if (eq system-type 'darwin)
     (require 'slipset-osx))
@@ -69,11 +69,24 @@
 (require 'slipset-scala)
 (require 'slipset-display)
 (require 'slipset-irc)
-(require 'slipset-java)
+;(require 'slipset-java)
 (require 'slipset-appearance)
 (require 'slipset-yasnippet)
+(require 'company)
+(require 'fill-column-indicator)
 
+(setq fci-rule-color "grey30")
+(setq fci-rule-column 80)
+(define-globalized-minor-mode global-fci-mode fci-mode (lambda () (fci-mode 1)))
+(global-fci-mode 1)
+(setq truncate-lines nil)
 ;; ;(require 'eshell)
+
+(setq eshell-prompt-function (lambda nil
+    (concat
+     (propertize (file-name-nondirectory (eshell/pwd)) 'face `(:foreground "limegreen"))
+     (propertize " $ " 'face `(:foreground "limegreen")))))
+(setq eshell-highlight-prompt nil)
 
 
 ;; (setq eshell-visual-commands
@@ -92,6 +105,7 @@
 (put 'downcase-region 'disabled nil)
 (setq split-height-threshold nil)
 (setq ediff-split-window-function 'split-window-horizontally)
+(setq-default fringes-outside-margins t)
 
 (add-to-list 'ac-dictionary-directories (concat init-home-dir "ac-dict"))
 (ac-config-default)
@@ -105,6 +119,7 @@
 (require 'projectile)
 (projectile-global-mode)
 (setq projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
+(setq projectile-globally-ignored-file-suffixes '("#~"))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -120,12 +135,14 @@
     ("a1289424bbc0e9f9877aa2c9a03c7dfd2835ea51d8781a0bf9e2415101f70a7e" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(httpd-port 8848)
  '(inf-clojure-program "planck --theme dark")
+
  '(package-selected-packages
    (quote
     (cider-hydra htmlize twittering-mode solarized-theme smart-tabs-mode simple-httpd scala-mode2 purty-mode projectile paredit-menu markdown-mode magit kite js2-mode jabber inf-clojure git-gutter-fringe git flymake-jslint flymake-cursor ensime emacs-eclim editorconfig diminish clojure-snippets clojure-mode-extra-font-locking clj-refactor auto-complete atom-dark-theme)))
  '(safe-local-variable-values
    (quote
-    ((bug-reference-bug-regexp . "#\\(?2:[[:digit:]]+\\)")
+    ((checkdoc-package-keywords-flag)
+     (bug-reference-bug-regexp . "#\\(?2:[[:digit:]]+\\)")
      (whitespace-cleanup-mode . t)))))
 
 (global-auto-revert-mode 1)
@@ -152,5 +169,6 @@
  '(magit-diff-file-heading ((t (:weight normal))))
  '(magit-section-heading ((t (:foreground "LightGoldenrod2" :weight normal))))
  '(mode-line ((t (:background "grey12" :foreground "#96CBFE"))))
- '(mode-line-buffer-id ((t (:weight normal)))))
+ '(mode-line-buffer-id ((t (:weight normal :foreground "red")))))
 (put 'narrow-to-region 'disabled nil)
+(put 'set-goal-column 'disabled nil)

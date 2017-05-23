@@ -9,12 +9,11 @@
 (setq cider-popup-stacktraces nil)
 (setq cider-show-error-buffer nil)
 (setq cider-auto-select-error-buffer nil)
-
-(setq cider-repl-print-length 100000)
+(setq cider-repl-use-pretty-printing t)
+(setq cider-repl-print-length 10000)
 (setq cider-repl-use-clojure-font-lock t)
 (setq nrepl-port "4807")
 (setq cljr-warn-on-eval nil)
-;(cider-hydra-on)
 (add-hook 'cider-repl-mode-hook 'company-mode)
 (add-hook 'cider-mode-hook 'company-mode)
 (add-hook 'cider-mode-hook 'eldoc-mode)
@@ -23,6 +22,11 @@
 
 (add-hook 'clojure-mode-hook 'enable-paredit-mode)
 (add-hook 'clojure-mode-hook 'clj-refactor-mode)
+
+(defun setup-cljr ()
+  (cljr-add-keybindings-with-prefix "C-c C-m"))
+
+(add-hook 'clojure-mode-hook #'setup-cljr)
 
 (define-clojure-indent
   (defroutes 'defun)
@@ -33,5 +37,6 @@
   (HEAD 2)
   (ANY 2)
   (context 2))
+					;(setq clojure-indent-style :always-indent)
 
 (provide 'slipset-clojure)
