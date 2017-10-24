@@ -26,6 +26,7 @@
 				   twittering-mode
 				   auto-complete
 				   clojure-mode cider
+				   fill-column-indicator
 				   clj-refactor
 				   markdown-mode
 				   auto-complete
@@ -42,7 +43,8 @@
 				   paredit
 				   paredit-menu
 				   clojure-snippets
-				   cider-hydra))
+				   cider-hydra
+				   window-purpose))
 
 (ensure-packages-install-missing)
 
@@ -74,6 +76,7 @@
 (require 'slipset-yasnippet)
 (require 'company)
 (require 'fill-column-indicator)
+(require 'slipset-purpose)
 
 (setq fci-rule-color "grey30")
 (setq fci-rule-column 80)
@@ -137,14 +140,16 @@
    (quote
     ("a1289424bbc0e9f9877aa2c9a03c7dfd2835ea51d8781a0bf9e2415101f70a7e" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(httpd-port 8848)
+ '(inf-clojure-lein-cmd "planck --theme dark")
  '(inf-clojure-program "planck --theme dark")
-
  '(package-selected-packages
    (quote
-    (cider-hydra htmlize twittering-mode solarized-theme smart-tabs-mode simple-httpd scala-mode2 purty-mode projectile paredit-menu markdown-mode magit kite js2-mode jabber inf-clojure git-gutter-fringe git flymake-jslint flymake-cursor ensime emacs-eclim editorconfig diminish clojure-snippets clojure-mode-extra-font-locking clj-refactor auto-complete atom-dark-theme)))
+    (window-purpose slack vue-html-mode vue-mode cider-hydra htmlize twittering-mode solarized-theme smart-tabs-mode simple-httpd scala-mode2 purty-mode projectile paredit-menu markdown-mode magit kite js2-mode jabber inf-clojure git-gutter-fringe git flymake-jslint flymake-cursor ensime emacs-eclim editorconfig diminish clojure-snippets clojure-mode-extra-font-locking clj-refactor auto-complete atom-dark-theme)))
  '(safe-local-variable-values
    (quote
-    ((checkdoc-package-keywords-flag)
+    ((js2-strict-missing-semi-warning nil)
+     (cider-cljs-lein-repl . "(start-cljs)")
+     (checkdoc-package-keywords-flag)
      (bug-reference-bug-regexp . "#\\(?2:[[:digit:]]+\\)")
      (whitespace-cleanup-mode . t)))))
 
