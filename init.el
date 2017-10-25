@@ -47,9 +47,8 @@
 (ensure-packages-install-missing)
 
 (require 'whitespace)
-;(setq whitespace-line-column 80) ;; limit line length
 (setq whitespace-style '(face tabs empty trailing))
-(global-whitespace-mode 0)
+(global-whitespace-mode 1)
 
 (if (eq system-type 'darwin)
     (require 'slipset-osx))
@@ -138,13 +137,14 @@
     ("a1289424bbc0e9f9877aa2c9a03c7dfd2835ea51d8781a0bf9e2415101f70a7e" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(httpd-port 8848)
  '(inf-clojure-program "planck --theme dark")
-
  '(package-selected-packages
    (quote
-    (cider-hydra htmlize twittering-mode solarized-theme smart-tabs-mode simple-httpd scala-mode2 purty-mode projectile paredit-menu markdown-mode magit kite js2-mode jabber inf-clojure git-gutter-fringe git flymake-jslint flymake-cursor ensime emacs-eclim editorconfig diminish clojure-snippets clojure-mode-extra-font-locking clj-refactor auto-complete atom-dark-theme)))
+    (vue-mode vue-html-mode sql-indent format-sql adoc-mode fill-column-indicator groovy-mode yaml-mode xml-rpc jira cider-hydra hydra htmlize epresent slideview clojure-snippets paredit-menu diminish editorconfig atom-dark-theme twittering-mode smart-tabs-mode simple-httpd purty-mode projectile markdown-mode magit kite js2-mode jabber git-gutter-fringe git flymake-jslint flymake-cursor ensime clj-refactor auto-complete)))
  '(safe-local-variable-values
    (quote
-    ((checkdoc-package-keywords-flag)
+    ((js2-strict-missing-semi-warning nil)
+     (cider-cljs-lein-repl . "(start-cljs)")
+     (checkdoc-package-keywords-flag)
      (bug-reference-bug-regexp . "#\\(?2:[[:digit:]]+\\)")
      (whitespace-cleanup-mode . t)))))
 
