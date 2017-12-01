@@ -14,7 +14,10 @@
 
 (cond ((and (= 2560 (display-pixel-width))
 	    (= 1440 (display-pixel-height)))
-       (set-face-attribute 'default nil :height 110)))
+       (set-face-attribute 'default nil :height 110)
+       (and (= 3440 (display-pixel-width))
+	    (= 1440 (display-pixel-height)))
+       (set-face-attribute 'default nil :height 100)))
 
 
 (provide 'slipset-osx)
