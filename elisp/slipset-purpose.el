@@ -7,6 +7,13 @@
 (add-to-list 'purpose-user-mode-purposes '(emacs-lisp-mode . src))
 (add-to-list 'purpose-user-mode-purposes '(cider-repl-mode . clj-repl))
 (add-to-list 'purpose-user-mode-purposes '(eshell-mode . shells))
-(add-to-list 'purpose-user-mode-purposes '(magit-status-mode . shells))
 (purpose-compile-user-configuration)
+
+(defun load-4k-wide ()
+  (purpose-load-frame-layout '4k-wide)
+  (balance-windows))
+
+(cond ((eq slipset-display '4k-wide)
+       (load-4k-wide)))
+
 (provide 'slipset-purpose)

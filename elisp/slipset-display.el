@@ -1,19 +1,20 @@
-(set-frame-size (selected-frame) 162 80)
-(split-window-horizontally)
 
-(setq screen-width (x-display-pixel-width))
-(setq screen-height (x-display-pixel-height))
-(set-face-attribute 'default nil :family slipset-font-family)
+(setq slipset-display (cond ((and (= 2560 (display-pixel-width))
+				  (= 1440 (display-pixel-height)))
+			     '4k)
+			    ((and (= 3440 (display-pixel-width))
+				  (= 1440 (display-pixel-height)))
+			     '4k-wide)))
 
-(cond
- ((eq 1050 screen-height) (set-face-attribute 'default nil :height 100))
- ((eq 1200 screen-height) (set-face-attribute 'default nil :height 120))
- ('t (set-face-attribute 'default nil :height 130)))
+(when (window-system)
+  (set-default-font slipset-font-family))
 
+(cond ((eq slipset-display '4k)
+       (set-face-attribute 'default nil :height 110))
+      ((eq slipset-display '4k-wide)
+       (set-face-attribute 'default nil :height 100)))
 
-
-(toggle-frame-maximized)
-
+(toggle-frame-fullscreen)
 (load-theme 'atom-dark t)
 
 (provide 'slipset-display)

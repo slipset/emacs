@@ -44,6 +44,7 @@
 				   paredit-menu
 				   clojure-snippets
 				   cider-hydra
+				   restclient
 				   window-purpose))
 
 (ensure-packages-install-missing)
@@ -179,3 +180,14 @@
  '(mode-line-buffer-id ((t (:weight normal :foreground "red")))))
 (put 'narrow-to-region 'disabled nil)
 (put 'set-goal-column 'disabled nil)
+
+
+(add-to-list 'company-backends 'company-restclient)
+
+(defun add-auto-mode (mode &rest patterns)
+  "Associate every pattern in `PATTERNS' with `MODE'."
+  (dolist (pattern patterns)
+    (add-to-list 'auto-mode-alist (cons pattern mode))))
+
+(require 'restclient)
+(add-auto-mode 'restclient-mode "\\.restclient")
