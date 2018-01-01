@@ -13,6 +13,8 @@
   (purpose-load-frame-layout layout)
   (balance-windows))
 
-(load-layout '4k-wide)
+(load-layout (if (eq 'laptop slipset-display)
+		 slipset-display
+	       '4k-wide))
 
 (provide 'slipset-purpose)
