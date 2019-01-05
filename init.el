@@ -5,6 +5,9 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
+
+;;; Code:
+
 (package-initialize)
 
 (setq inhibit-startup-screen t)
@@ -35,6 +38,7 @@
 				   sbt-mode
 				   ensime
 				   jabber
+				   use-package
 ;				   emacs-eclim
 				   atom-dark-theme
 				   editorconfig
@@ -43,11 +47,16 @@
 				   paredit
 				   paredit-menu
 				   clojure-snippets
-				   cider-hydra
 				   restclient
-				   window-purpose))
+				   window-purpose
+				   flycheck-clojure
+				   flycheck-pos-tip
+				   magithub))
 
 (ensure-packages-install-missing)
+
+
+(require 'use-package)
 
 (require 'whitespace)
 (setq whitespace-style '(face tabs empty trailing))
@@ -59,6 +68,7 @@
 (if (eq system-type 'windows-nt)
     (require 'slipset-windows-nt))
 
+(require 'flycheck-pos-tip)
 (require 'yasnippet)
 (require 'paredit)
 (require 'paredit-menu)
@@ -69,13 +79,14 @@
 (require 'slipset-clojure)
 (require 'slipset-javascript)
 (require 'slipset-scala)
-(require 'slipset-display)
+
 (require 'slipset-irc)
 ;(require 'slipset-java)
 (require 'slipset-appearance)
 (require 'slipset-yasnippet)
 (require 'company)
 (require 'fill-column-indicator)
+(require 'slipset-display)
 (require 'slipset-purpose)
 
 (setq fci-rule-color "grey30")
@@ -100,7 +111,7 @@
 ;; (setq eshell-visual-subcommands
 ;;       '(("git" "log" "l" "diff" "show")))
 (tool-bar-mode -1)
-(menu-bar-mode 1)
+(menu-bar-mode -1)
 (scroll-bar-mode -1)
 (line-number-mode t)
 (display-time-mode t)
@@ -121,11 +132,13 @@
 (setq ac-ignore-case nil)
 (define-key global-map (kbd "RET") 'newline-and-indent)
 
+(setq projectile-keymap-prefix (kbd "C-c p"))
 
 (require 'projectile)
 (projectile-global-mode)
 (setq projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
 (setq projectile-globally-ignored-file-suffixes '("#~"))
+
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -142,12 +155,20 @@
  '(httpd-port 8848)
  '(inf-clojure-lein-cmd "planck --theme dark")
  '(inf-clojure-program "planck --theme dark")
+ '(markdown-fontify-code-blocks-natively t)
  '(package-selected-packages
    (quote
-    (window-purpose slack vue-html-mode vue-mode cider-hydra htmlize twittering-mode solarized-theme smart-tabs-mode simple-httpd scala-mode2 purty-mode projectile paredit-menu markdown-mode magit kite js2-mode jabber inf-clojure git-gutter-fringe git flymake-jslint flymake-cursor ensime emacs-eclim editorconfig diminish clojure-snippets clojure-mode-extra-font-locking clj-refactor auto-complete atom-dark-theme)))
+    (racket-mode flycheck-pos-tip flycheck-clojure use-package company-restclient restclient window-purpose slack vue-html-mode vue-mode htmlize twittering-mode solarized-theme smart-tabs-mode simple-httpd scala-mode2 purty-mode projectile paredit-menu magit kite js2-mode jabber inf-clojure git-gutter-fringe git flymake-jslint flymake-cursor ensime editorconfig diminish clojure-snippets clojure-mode-extra-font-locking clj-refactor auto-complete atom-dark-theme)))
  '(safe-local-variable-values
    (quote
-    ((js2-strict-missing-semi-warning nil)
+    ((eval progn
+	   (setenv "RSA_PRIVATE_KEY_PATH" "/Users/erik/Documents/ardoq.com/ardoq-api/dev-resources/rsakey/key.pem")
+	   (setenv "RSA_PUBLIC_KEY_PATH" "/Users/erik/Documents/ardoq.com/ardoq-api/dev-resources/rsakey/key.pub")
+	   (setenv "MANDRILL_API_KEY" "hlICKC9alBnarSoUzGMNiA")
+	   (setenv "MAIL_PROVIDER" "mandrill")
+	   (setenv "CHARGEBEE_SITE" "ardoq-test")
+	   (setenv "CHARGEBEE_API_KEY" "test_07MgrcuH98zPmBTkJTNWjdMZZGOZahccuZ"))
+     (js2-strict-missing-semi-warning nil)
      (cider-cljs-lein-repl . "(start-cljs)")
      (checkdoc-package-keywords-flag)
      (bug-reference-bug-regexp . "#\\(?2:[[:digit:]]+\\)")
@@ -176,11 +197,11 @@
  '(font-lock-warning-face ((t (:foreground "#ff982d" :weight normal))))
  '(magit-diff-file-heading ((t (:weight normal))))
  '(magit-section-heading ((t (:foreground "LightGoldenrod2" :weight normal))))
+ '(markdown-code-face ((t (:inherit monoid))))
  '(mode-line ((t (:background "grey12" :foreground "#96CBFE"))))
  '(mode-line-buffer-id ((t (:weight normal :foreground "red")))))
 (put 'narrow-to-region 'disabled nil)
 (put 'set-goal-column 'disabled nil)
-
 
 (add-to-list 'company-backends 'company-restclient)
 
@@ -189,5 +210,12 @@
   (dolist (pattern patterns)
     (add-to-list 'auto-mode-alist (cons pattern mode))))
 
-(require 'restclient)
-(add-auto-mode 'restclient-mode "\\.restclient")
+(defun prevent-whitespace-mode-for-magit ()
+  (not (derived-mode-p 'magit-mode)))
+
+(add-function :before-while whitespace-enable-predicate 'prevent-whitespace-mode-for-magit)
+
+(use-package magithub
+  :after magit
+  :ensure t
+  :config (magithub-feature-autoinject t))

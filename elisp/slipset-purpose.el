@@ -9,12 +9,11 @@
 (add-to-list 'purpose-user-mode-purposes '(eshell-mode . shells))
 (purpose-compile-user-configuration)
 
-(defun load-layout (layout)
-  (purpose-load-frame-layout layout)
+(defun load-4k-wide ()
+  (purpose-load-frame-layout '4k-wide)
   (balance-windows))
 
-(load-layout (if (eq 'laptop slipset-display)
-		 slipset-display
-	       '4k-wide))
+(cond ((eq slipset-display '4k-wide)
+       (load-4k-wide)))
 
 (provide 'slipset-purpose)
