@@ -1,5 +1,8 @@
-(require 'cider)
-(require 'clj-refactor)
+(use-package cider)
+(use-package clj-refactor)
+(use-package flycheck-clojure)
+
+
 					;(setq cider-repl-pop-to-buffer-on-connect nil)
 
 (eval-after-load 'flycheck '(flycheck-clojure-setup))

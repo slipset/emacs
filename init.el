@@ -1,5 +1,7 @@
-;; my emacs config
+;;; package ---- my emacs config
 
+;;; Commentary:
+;;; No comment :)
 
 ;; Added by Package.el.  This must come before configurations of
 ;; installed packages.  Don't delete this line.  If you don't want it,
@@ -15,101 +17,98 @@
 (setq init-home-dir (file-name-directory user-init-file))
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
 			 ("melpa" . "http://melpa.org/packages/")))
+
+
+(eval-when-compile
+  ;; Following line is not needed if use-package.el is in ~/.emacs.d
+  (require 'use-package))
+
 (add-to-list 'load-path
 	     (expand-file-name "elisp" init-home-dir))
 
+(setq use-package-always-ensure t)
+
+(use-package projectile
+  :init
+  (setq projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
+  (setq projectile-globally-ignored-file-suffixes '("#~"))
+
+  (setq projectile-keymap-prefix (kbd "C-c p"))
+  :config
+  (projectile-global-mode))
+
+(use-package uniquify
+  :ensure nil
+  :init
+  (setq uniquify-buffer-name-style 'reverse))
+
+(use-package flymake-jslint)
+(use-package flymake-cursor)
+(use-package magit)
+(use-package smart-tabs-mode)
+(use-package js2-mode)
+(use-package git-gutter-fringe)
+(use-package fill-column-indicator
+  :init
+  (setq fci-rule-color "grey30")
+  (setq fci-rule-column 80)
+  (setq fci-handle-truncate-lines nil))
+
+(use-package markdown-mode)
+(use-package atom-dark-theme)
+(use-package editorconfig)
+(use-package diminish)
+(use-package restclient)
+(use-package window-purpose)
+
+(use-package flycheck-pos-tip)
+(use-package slipset-funs
+  :ensure nil)
+
+(use-package whitespace
+  :init
+  (setq whitespace-style '(face tabs empty trailing))
+  :config
+  (global-whitespace-mode 1))
 
 
-(require 'slipset-funs)
-(require 'ensure-packages)
 
-(setq ensure-packages '(projectile simple-httpd flymake-jslint
-				   flymake-cursor git kite magit
-				   smart-tabs-mode js2-mode git-gutter-fringe
-				   twittering-mode
-				   auto-complete
-				   clojure-mode cider
-				   fill-column-indicator
-				   clj-refactor
-				   markdown-mode
-				   auto-complete
-				   yasnippet
-				   purty-mode
-				   sbt-mode
-				   ensime
-				   jabber
-				   use-package
-;				   emacs-eclim
-				   atom-dark-theme
-				   editorconfig
-				   rcirc
-				   diminish
-				   paredit
-				   paredit-menu
-				   clojure-snippets
-				   restclient
-				   window-purpose
-				   flycheck-clojure
-				   flycheck-pos-tip
-				   magithub))
+(use-package paredit)
+(use-package paredit-menu)
+(use-package slipset-git
+  :ensure nil)
+(use-package slipset-clojure
+  :ensure nil)
+(use-package slipset-javascript
+  :ensure nil)
+(use-package slipset-osx
+  :ensure nil)
+(use-package slipset-appearance
+  :ensure nil)
+(use-package fill-column-indicator
+  :ensure nil
+  :config
+  (define-globalized-minor-mode global-fci-mode fci-mode (lambda () (fci-mode 1)))
+  (global-fci-mode 1))
+(use-package slipset-display
+  :ensure nil)
+(use-package slipset-purpose
+  :ensure nil)
 
-(ensure-packages-install-missing)
+(use-package eshell
+  :init
+  (setq eshell-prompt-function (lambda nil
+				 (concat
+				  (propertize (file-name-nondirectory (eshell/pwd)) 'face `(:foreground "limegreen"))
+				  (propertize " $ " 'face `(:foreground "limegreen")))))
+  (setq eshell-highlight-prompt nil)
 
 
-(require 'use-package)
+  (setq eshell-visual-commands
+	'("less" "tmux" "htop" "top" "bash" "zsh" "fish"))
+  (setq eshell-visual-subcommands
+	'(("git" "log" "l" "diff" "show"))))
 
-(require 'whitespace)
-(setq whitespace-style '(face tabs empty trailing))
-(global-whitespace-mode 1)
-
-(if (eq system-type 'darwin)
-    (require 'slipset-osx))
-
-(if (eq system-type 'windows-nt)
-    (require 'slipset-windows-nt))
-
-(require 'flycheck-pos-tip)
-(require 'yasnippet)
-(require 'paredit)
-(require 'paredit-menu)
-(require 'flymake-cursor)
-(require 'editorconfig)
-(require 'auto-complete-config)
-(require 'slipset-git)
-(require 'slipset-clojure)
-(require 'slipset-javascript)
-(require 'slipset-scala)
-
-(require 'slipset-irc)
-;(require 'slipset-java)
-(require 'slipset-appearance)
-(require 'slipset-yasnippet)
-(require 'company)
-(require 'fill-column-indicator)
-(require 'slipset-display)
-(require 'slipset-purpose)
-
-(setq fci-rule-color "grey30")
-(setq fci-rule-column 80)
-(setq fci-handle-truncate-lines nil)
-(set-default 'truncate-lines nil)
-(define-globalized-minor-mode global-fci-mode fci-mode (lambda () (fci-mode 1)))
-(global-fci-mode 1)
-
-
-;; ;(require 'eshell)
-
-(setq eshell-prompt-function (lambda nil
-    (concat
-     (propertize (file-name-nondirectory (eshell/pwd)) 'face `(:foreground "limegreen"))
-     (propertize " $ " 'face `(:foreground "limegreen")))))
-(setq eshell-highlight-prompt nil)
-
-
-;; (setq eshell-visual-commands
-;;       '("less" "tmux" "htop" "top" "bash" "zsh" "fish"))
-;; (setq eshell-visual-subcommands
-;;       '(("git" "log" "l" "diff" "show")))
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (scroll-bar-mode -1)
@@ -123,21 +122,15 @@
 (setq split-height-threshold nil)
 (setq ediff-split-window-function 'split-window-horizontally)
 (setq-default fringes-outside-margins t)
+(setq default-directory "~/")
 
-(add-to-list 'ac-dictionary-directories (concat init-home-dir "ac-dict"))
-(ac-config-default)
-(setq-default ac-sources (add-to-list 'ac-sources 'ac-source-dictionary))
-(global-auto-complete-mode t)
-(setq ac-auto-start 2)
-(setq ac-ignore-case nil)
+;;(add-to-list 'ac-dictionary-directories (concat init-home-dir "ac-dict"))
+;;(ac-config-default)
+;; (setq-default ac-sources (add-to-list 'ac-sources 'ac-source-dictionary))
+;; (global-auto-complete-mode t)
+;; (setq ac-auto-start 2)
+;; (setq ac-ignore-case nil)
 (define-key global-map (kbd "RET") 'newline-and-indent)
-
-(setq projectile-keymap-prefix (kbd "C-c p"))
-
-(require 'projectile)
-(projectile-global-mode)
-(setq projectile-mode-line '(:eval (format " [%s]" (projectile-project-name))))
-(setq projectile-globally-ignored-file-suffixes '("#~"))
 
 
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -176,12 +169,7 @@
 
 (global-auto-revert-mode 1)
 
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'reverse)
-
-(setq default-directory "~/")
-
-(require 'jabber)
+;; (require 'jabber)
 
 (setq edconf-exec-path slipset-edconf-exec-path)
 
@@ -203,7 +191,7 @@
 (put 'narrow-to-region 'disabled nil)
 (put 'set-goal-column 'disabled nil)
 
-(add-to-list 'company-backends 'company-restclient)
+;; (add-to-list 'company-backends 'company-restclient)
 
 (defun add-auto-mode (mode &rest patterns)
   "Associate every pattern in `PATTERNS' with `MODE'."
@@ -213,9 +201,9 @@
 (defun prevent-whitespace-mode-for-magit ()
   (not (derived-mode-p 'magit-mode)))
 
+
 (add-function :before-while whitespace-enable-predicate 'prevent-whitespace-mode-for-magit)
 
-(use-package magithub
-  :after magit
-  :ensure t
-  :config (magithub-feature-autoinject t))
+
+(provide 'init)
+;;; init.el ends here
